@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Печать 2 карточки', ['report/card2', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?= $this->render('_formView', [
         'model' => $model,
-        'attributes' => [
+        'arr' => [
             'form:ntext',
             'number_form:ntext',
             'original_number:ntext',
