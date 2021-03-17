@@ -40,6 +40,7 @@ class SheetController extends Controller
     {
         $searchModel = new SheetSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 15];
 
         $this->layout='base';
         return $this->render('index', [

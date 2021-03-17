@@ -25,6 +25,7 @@ BaseAsset::register($this);
     <body>
     <?php $this->beginBody() ?>
     <header>
+    <!--
         <div class="container">
             <div class="row header_top">
                 <div class="logo col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -45,6 +46,7 @@ BaseAsset::register($this);
                 </div>
             </div>
         </div>
+        -->
         <div class="container-fluid menu_top">
             <div class="container">
                 <div class="row">
