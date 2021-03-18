@@ -184,19 +184,19 @@ use yii\widgets\Pjax;
 
         <div class="col-md-2">
             <?php
-            $madeForm = \app\models\Agent::find()->all();
-            $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-            $params = ['prompt' => 'Укажите изготовителя МКФ'];
-            echo $form->field($model, 'made_form')->dropDownList($items, $params);
+                $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
+                $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
+                $params = ['prompt' => 'Укажите изготовителя МКФ'];
+                echo $form->field($model, 'made_form')->dropDownList($items, $params);
             ?>
         </div>
 
         <div class="col-md-2">
             <?php
-            $madeForm = \app\models\Agent::find()->all();
-            $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-            $params = ['prompt' => 'Укажите поставщика документации'];
-            echo $form->field($model, 'agent')->dropDownList($items, $params);
+                $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
+                $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
+                $params = ['prompt' => 'Укажите поставщика документации'];
+                echo $form->field($model, 'agent')->dropDownList($items, $params);
             ?>
         </div>
 
@@ -349,13 +349,13 @@ use yii\widgets\Pjax;
             <table>
                 <tr>
                     <td>
-                        <?= $form->field($model, 'index')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Index::find()->all(), 'index', 'index'),
+                        <?= $form->field($model, 'index')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Index::find()->orderBy('index ASC')->all(), 'index', 'index'),
                             [
                                 'prompt' => 'Укажите индекс изделия',
                                 'onchange' => '
                                             $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
-                                                $("select#sheet-indication").html(data);
-                                            });',
+                                                $("select#sheet-indication").html(data).sort(function(a, b) { return a.text == b.text ? 0: a.text < b.text ? -1 :1 });
+                                            });'
                             ]
                         ); ?>
                     </td>
@@ -368,7 +368,7 @@ use yii\widgets\Pjax;
             </table>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'indication')->dropDownList($arr, ['prompt' => '',]) ?>
+            <?= $form->field($model, 'indication')->dropDownList($arr, ['prompt' => '']) ?>
         </div>
         <?php Pjax::end(); ?>
 
@@ -378,24 +378,24 @@ use yii\widgets\Pjax;
 
         <div class="col-md-2">
             <?php
-            $items = [
-                'Принять на хранение'=>'Принять на хранение',
-                'Переслать'=>'Переслать',
-                'Уничтожить'=>'Уничтожить',
-            ];
-            $params = [
-                'prompt' => 'Укажите вид задания'
-            ];
-            echo $form->field($model, 'action')->dropDownList($items, $params);
+                $items = [
+                    'Принять на хранение'=>'Принять на хранение',
+                    'Переслать'=>'Переслать',
+                    'Уничтожить'=>'Уничтожить',
+                ];
+                $params = [
+                    'prompt' => 'Укажите вид задания'
+                ];
+                echo $form->field($model, 'action')->dropDownList($items, $params);
             ?>
         </div>
 
         <div class="col-md-2">
             <?php
-            $madeForm = \app\models\Agent::find()->all();
-            $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-            $params = ['prompt' => 'Укажите адрес'];
-            echo $form->field($model, 'adress')->dropDownList($items, $params);
+                $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
+                $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
+                $params = ['prompt' => 'Укажите адрес'];
+                echo $form->field($model, 'adress')->dropDownList($items, $params);
             ?>
         </div>
 
@@ -409,19 +409,19 @@ use yii\widgets\Pjax;
 
         <div class="col-md-2">
             <?php
-            $items = [
-                'Документация на изделие'=>'Документация на изделие',
-                'Нормативно-техническая документация'=>'Нормативно-техническая документация',
-                'Документация на составную часть изделия'=>'Документация на составную часть изделия',
-                'Материалы НИР и ОКР'=>'Материалы НИР и ОКР',
-                'Проект'=>'Проект',
-                'Уникальная и особо ценная документация'=>'Уникальная и особо ценная документация',
-                'Аварийная документация'=>'Аварийная документация',
-            ];
-            $params = [
-                'prompt' => 'Укажите признак документации'
-            ];
-            echo $form->field($model, 'prizn_document')->dropDownList($items, $params);
+                $items = [
+                    'Документация на изделие'=>'Документация на изделие',
+                    'Нормативно-техническая документация'=>'Нормативно-техническая документация',
+                    'Документация на составную часть изделия'=>'Документация на составную часть изделия',
+                    'Материалы НИР и ОКР'=>'Материалы НИР и ОКР',
+                    'Проект'=>'Проект',
+                    'Уникальная и особо ценная документация'=>'Уникальная и особо ценная документация',
+                    'Аварийная документация'=>'Аварийная документация',
+                ];
+                $params = [
+                    'prompt' => 'Укажите признак документации'
+                ];
+                echo $form->field($model, 'prizn_document')->dropDownList($items, $params);
             ?>
         </div>
     </div>

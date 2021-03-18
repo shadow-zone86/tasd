@@ -184,7 +184,7 @@ use yii\widgets\Pjax;
 
             <div class="col-md-2">
                 <?php
-                    $madeForm = \app\models\Agent::find()->all();
+                    $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
                     $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
                     $params = ['prompt' => 'Укажите изготовителя МКФ'];
                     echo $form->field($model, 'made_form')->dropDownList($items, $params);
@@ -193,7 +193,7 @@ use yii\widgets\Pjax;
 
             <div class="col-md-2">
                 <?php
-                    $madeForm = \app\models\Agent::find()->all();
+                    $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
                     $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
                     $params = ['prompt' => 'Укажите поставщика документации'];
                     echo $form->field($model, 'agent')->dropDownList($items, $params);
@@ -349,13 +349,13 @@ use yii\widgets\Pjax;
                     <table>
                         <tr>
                             <td>
-                                <?= $form->field($model, 'index')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Index::find()->all(), 'index', 'index'),
+                                <?= $form->field($model, 'index')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Index::find()->orderBy('index ASC')->all(), 'index', 'index'),
                                     [
                                         'prompt' => 'Укажите индекс изделия',
                                         'onchange' => '
                                             $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
-                                                $("select#sheet-indication").html(data);
-                                            });',
+                                                $("select#sheet-indication").html(data).sort(function(a, b) { return a.text == b.text ? 0: a.text < b.text ? -1 :1 });
+                                            });'
                                     ]
                                 ); ?>
                             </td>
@@ -368,7 +368,7 @@ use yii\widgets\Pjax;
                     </table>
                 </div>
                 <div class="col-md-2">
-                    <?= $form->field($model, 'indication')->dropDownList($arr, ['prompt' => '',]) ?>
+                    <?= $form->field($model, 'indication')->dropDownList($arr, ['prompt' => '']) ?>
                 </div>
             <?php Pjax::end(); ?>
 
@@ -392,7 +392,7 @@ use yii\widgets\Pjax;
 
             <div class="col-md-2">
                 <?php
-                    $madeForm = \app\models\Agent::find()->all();
+                    $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
                     $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
                     $params = ['prompt' => 'Укажите адрес'];
                     echo $form->field($model, 'adress')->dropDownList($items, $params);
