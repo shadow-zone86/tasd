@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 use yii\jui\DatePicker;
 use yii\widgets\Pjax;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Sheet */
@@ -28,17 +29,17 @@ use yii\widgets\Pjax;
 
         <div class="col-md-2">
             <?php
-            $items = [
-                'Основной'=>'Основной',
-                'Запасной'=>'Запасной',
-                //'Дубликат'=>'Дубликат',
-                'А-Дубликат основной'=>'А-Дубликат основной',
-                'Б-Дубликат запасной'=>'Б-Дубликат запасной'
-            ];
-            $params = [
-                'prompt' => 'Укажите номер экземпляра'
-            ];
-            echo $form->field($model, 'number_copy')->dropDownList($items, $params);
+                $items = [
+                    'Основной'=>'Основной',
+                    'Запасной'=>'Запасной',
+                    //'Дубликат'=>'Дубликат',
+                    'А-Дубликат основной'=>'А-Дубликат основной',
+                    'Б-Дубликат запасной'=>'Б-Дубликат запасной'
+                ];
+                $params = [
+                    'prompt' => 'Укажите номер экземпляра'
+                ];
+                echo $form->field($model, 'number_copy')->dropDownList($items, $params);
             ?>
         </div>
 
@@ -136,14 +137,14 @@ use yii\widgets\Pjax;
             <?= $form->field($model, 'key4')->textInput() ?>
             <?= $form->field($model, 'key5')->textInput() ?>
             <?php
-            $items = [
-                'Негатив'=>'Негатив',
-                'Позитив'=>'Позитив',
-            ];
-            $params = [
-                'prompt' => 'Укажите вид изображения'
-            ];
-            echo $form->field($model, 'scene')->dropDownList($items, $params);
+                $items = [
+                    'Негатив'=>'Негатив',
+                    'Позитив'=>'Позитив',
+                ];
+                $params = [
+                    'prompt' => 'Укажите вид изображения'
+                ];
+                echo $form->field($model, 'scene')->dropDownList($items, $params);
             ?>
             <?= $form->field($model, 'read')->textInput()->widget(MaskedInput::className(), [
                 'name' => 'masked-input',
@@ -165,20 +166,20 @@ use yii\widgets\Pjax;
 
         <div class="col-md-2">
             <?php
-            $items = [
-                'ОВ'=>'Особой важности',
-                'СС'=>'Совершенно секретно',
-                'С'=>'Секретно',
-                'Н/С'=>'Не секретно',
-                'ДСП'=>'Для служебного пользования',
-                'К'=>'Конфиденциально',
-                'КТ'=>'Комерческая тайна',
-                'СК'=>'Строго конфиденциально',
-            ];
-            $params = [
-                'prompt' => 'Укажите гриф секретности МКФ'
-            ];
-            echo $form->field($model, 'xxx')->dropDownList($items, $params);
+                $items = [
+                    'ОВ'=>'Особой важности',
+                    'СС'=>'Совершенно секретно',
+                    'С'=>'Секретно',
+                    'Н/С'=>'Не секретно',
+                    'ДСП'=>'Для служебного пользования',
+                    'К'=>'Конфиденциально',
+                    'КТ'=>'Комерческая тайна',
+                    'СК'=>'Строго конфиденциально',
+                ];
+                $params = [
+                    'prompt' => 'Укажите гриф секретности МКФ'
+                ];
+                echo $form->field($model, 'xxx')->dropDownList($items, $params);
             ?>
         </div>
 
@@ -186,8 +187,18 @@ use yii\widgets\Pjax;
             <?php
                 $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
                 $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-                $params = ['prompt' => 'Укажите изготовителя МКФ'];
-                echo $form->field($model, 'made_form')->dropDownList($items, $params);
+                //$params = ['prompt' => 'Укажите изготовителя МКФ'];
+                //echo $form->field($model, 'made_form')->dropDownList($items, $params);                
+                echo $form->field($model, 'made_form')->widget(Select2::className(), [
+                    'data' => $items,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите изготовителя МКФ ...'
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ]);                     
             ?>
         </div>
 
@@ -195,8 +206,18 @@ use yii\widgets\Pjax;
             <?php
                 $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
                 $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-                $params = ['prompt' => 'Укажите поставщика документации'];
-                echo $form->field($model, 'agent')->dropDownList($items, $params);
+                //$params = ['prompt' => 'Укажите поставщика документации'];
+                //echo $form->field($model, 'agent')->dropDownList($items, $params);
+                echo $form->field($model, 'agent')->widget(Select2::className(), [
+                    'data' => $items,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите поставщика документации ...'
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ]);                
             ?>
         </div>
 
@@ -213,7 +234,6 @@ use yii\widgets\Pjax;
         </div>
 
         <div class="col-md-2">
-
             <?= $form->field($model, 'date_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999',])->widget(DatePicker::className(), ['options'=>['class'=>'form-control',], 'language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]); ?>
         </div>
 
@@ -348,16 +368,36 @@ use yii\widgets\Pjax;
         <div class="col-md-2">
             <table>
                 <tr>
-                    <td>
-                        <?= $form->field($model, 'index')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Index::find()->orderBy('index ASC')->all(), 'index', 'index'),
-                            [
-                                'prompt' => 'Укажите индекс изделия',
-                                'onchange' => '
-                                            $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
-                                                $("select#sheet-indication").html(data).sort(function(a, b) { return a.text == b.text ? 0: a.text < b.text ? -1 :1 });
-                                            });'
-                            ]
-                        ); ?>
+                    <td style="width: 500px">
+                        <?php 
+                            /*
+                            echo $form->field($model, 'index')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Index::find()->orderBy('index ASC')->all(), 'index', 'index'),
+                                [
+                                    'prompt' => 'Укажите индекс изделия',
+                                    'onchange' => '
+                                                $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
+                                                    $("select#sheet-indication").html(data).sort(function(a, b) { return a.text == b.text ? 0: a.text < b.text ? -1 :1 });
+                                                });'
+                                ]
+                            );
+                            */
+                            $madeForm = \app\models\Index::find()->orderBy('index ASC')->all();
+                            $items = \yii\helpers\ArrayHelper::map($madeForm, 'index', 'index');
+                            echo $form->field($model, 'index')->widget(Select2::className(), [
+                                'data' => $items,
+                                'maintainOrder' => true,
+                                'options' => [
+                                    'placeholder' => 'Укажите индекс изделия ...',
+                                    'onchange' => '
+                                                $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
+                                                    $("select#sheet-indication").html(data).sort(function(a, b) { return a.text == b.text ? 0: a.text < b.text ? -1 :1 });
+                                                });'   
+                                ],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ]                             
+                            ]);
+                        ?>
                     </td>
                     <td style="width: 10px">
                     </td>
@@ -368,7 +408,19 @@ use yii\widgets\Pjax;
             </table>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'indication')->dropDownList($arr, ['prompt' => '']) ?>
+            <?php 
+                //echo $form->field($model, 'indication')->dropDownList($arr, ['prompt' => '']);
+                echo $form->field($model, 'indication')->widget(Select2::className(), [
+                    'data' => $arr,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => ''
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ]);                  
+            ?>
         </div>
         <?php Pjax::end(); ?>
 
@@ -394,8 +446,18 @@ use yii\widgets\Pjax;
             <?php
                 $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
                 $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-                $params = ['prompt' => 'Укажите адрес'];
-                echo $form->field($model, 'adress')->dropDownList($items, $params);
+                //$params = ['prompt' => 'Укажите адрес'];
+                //echo $form->field($model, 'adress')->dropDownList($items, $params);
+                echo $form->field($model, 'adress')->widget(Select2::className(), [
+                    'data' => $items,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите адрес ...'
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ]);                
             ?>
         </div>
 

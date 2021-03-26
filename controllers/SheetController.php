@@ -26,7 +26,7 @@ class SheetController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST']
                 ],
             ],
         ];
@@ -45,7 +45,7 @@ class SheetController extends Controller
         $this->layout='base';
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -59,7 +59,7 @@ class SheetController extends Controller
     {
         $this->layout='base';
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id)
         ]);
     }
 
@@ -89,7 +89,7 @@ class SheetController extends Controller
         $this->layout='base';
         return $this->render('create', [
             'model' => $model,
-            'arr' => [],
+            'arr' => []
         ]);
     }
 
@@ -114,7 +114,7 @@ class SheetController extends Controller
         $this->layout='base';
         return $this->render('create1', [
             'model' => $model,
-            'arr' => [],
+            'arr' => []
         ]);
     }
 
@@ -139,7 +139,7 @@ class SheetController extends Controller
         $this->layout='base';
         return $this->render('update', [
             'model' => $model,
-            'arr' => ArrayHelper::map(Index::find()->where(['index'=>$model->index])->all(), 'litera', 'litera'),
+            'arr' => ArrayHelper::map(Index::find()->where(['index'=>$model->index])->all(), 'litera', 'litera')
         ]);
     }
 
