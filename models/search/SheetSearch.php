@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models;
+namespace app\models\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Inspector;
+use app\models\Sheet;
 
 /**
- * InspectorSearch represents the model behind the search form of `app\models\Inspector`.
+ * SheetSearch represents the model behind the search form of `app\models\Sheet`.
  */
-class InspectorSearch extends Inspector
+class SheetSearch extends Sheet
 {
     /**
      * @inheritdoc
@@ -18,7 +18,6 @@ class InspectorSearch extends Inspector
     public function rules()
     {
         return [
-            [['id'], 'integer'],
             [['user', 'date_time', 'form', 'number_form', 'original_number', 'made_form', 'roll', 'copy', 'number_copy', 'scene', 'date_made', 'date_check', 'number_check', 'passport', 'agent', 'density', 'read', 'na2so3', 'ag', 'ov', 'ss', 's', 'n_s', 'dsp', 'k', 'kt', 'sk', 'hiccupped', 'ctencil', 'work_ctencil', 'defective_ctencil', 'glue', 'block', 'gloset', 'shelf', 'cell', 'index', 'indication', 'xxx', 'number_letter', 'prizn_document', 'cover_letter', 'accomp_letter', 'fasc', 'adress', 'data_made', 'nama_mkf', 'note', 'action', 'key1', 'key2', 'key3', 'key4', 'key5'], 'safe'],
         ];
     }
@@ -41,13 +40,48 @@ class InspectorSearch extends Inspector
      */
     public function search($params)
     {
-        $query = Inspector::find();
+        $session = Yii::$app->session;
+
+        if (!isset($params['SheetSearch'])) {
+            if ($session->has('SheetSearch')){
+                $params['SheetSearch'] = $session['SheetSearch'];
+            }
+        }
+        else {
+            $session->set('SheetSearch', $params['SheetSearch']);
+        }
+
+        if (!isset($params['sort'])) {
+            if ($session->has('SheetSearchSort')){
+                $params['sort'] = $session['SheetSearchSort'];
+            }
+        }
+        else {
+            $session->set('SheetSearchSort', $params['sort']);
+        }
+
+        if (isset($params['sort'])) {
+            $pos = stripos($params['sort'], '-');
+            if ($pos !== false) {
+                $typeSort = SORT_DESC;
+                $fieldSort = substr($params['sort'], 1);
+            } else {
+                $typeSort = SORT_ASC;
+                $fieldSort = $params['sort'];
+            }
+        }
+        else {
+            $typeSort = SORT_ASC;
+            $fieldSort = 'number_form';
+        }
+
+        $query = Sheet::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['id' => SORT_ASC]],
+            'sort' => ['defaultOrder' => [$fieldSort => $typeSort]],
         ]);
 
         $this->load($params);
@@ -73,8 +107,8 @@ class InspectorSearch extends Inspector
             ->andFilterWhere(['ilike', 'copy', $this->copy])
             ->andFilterWhere(['ilike', 'number_copy', $this->number_copy])
             ->andFilterWhere(['ilike', 'scene', $this->scene])
-            ->andFilterWhere(['ilike', 'date_made', $this->date_made])
-            ->andFilterWhere(['ilike', 'date_check', $this->date_check])
+            ->andFilterWhere(['=', 'date_made', $this->date_made])
+            ->andFilterWhere(['=', 'date_check', $this->date_check])
             ->andFilterWhere(['ilike', 'number_check', $this->number_check])
             ->andFilterWhere(['ilike', 'passport', $this->passport])
             ->andFilterWhere(['ilike', 'agent', $this->agent])
@@ -101,14 +135,14 @@ class InspectorSearch extends Inspector
             ->andFilterWhere(['ilike', 'cell', $this->cell])
             ->andFilterWhere(['ilike', 'index', $this->index])
             ->andFilterWhere(['ilike', 'indication', $this->indication])
-            ->andFilterWhere(['ilike', 'xxx', $this->xxx])
+            ->andFilterWhere(['=', 'xxx', $this->xxx])
             ->andFilterWhere(['ilike', 'number_letter', $this->number_letter])
             ->andFilterWhere(['ilike', 'prizn_document', $this->prizn_document])
             ->andFilterWhere(['ilike', 'cover_letter', $this->cover_letter])
             ->andFilterWhere(['ilike', 'accomp_letter', $this->accomp_letter])
             ->andFilterWhere(['ilike', 'fasc', $this->fasc])
             ->andFilterWhere(['ilike', 'adress', $this->adress])
-            ->andFilterWhere(['ilike', 'data_made', $this->data_made])
+            ->andFilterWhere(['=', 'data_made', $this->data_made])
             ->andFilterWhere(['ilike', 'nama_mkf', $this->nama_mkf])
             ->andFilterWhere(['ilike', 'note', $this->note])
             ->andFilterWhere(['ilike', 'action', $this->action])

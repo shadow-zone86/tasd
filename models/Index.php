@@ -2,53 +2,14 @@
 
 namespace app\models;
 
-use Yii;
+use app\models\base\IndexBase;
+use yii\helpers\ArrayHelper;
 
-/**
- * This is the model class for table "table_index".
- *
- * @property int $id
- * @property string $index
- * @property string $litera
- */
-class Index extends \yii\db\ActiveRecord
+class Index extends IndexBase
 {
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return 'table_index';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-//            [['id', 'index', 'litera'], 'required'],
-            [['index', 'litera'], 'required'],
-//            [['id'], 'default', 'value' => null],
-//            [['id'], 'integer'],
-            [['index', 'litera'], 'string'],
-//            [['id'], 'unique'],
-            [['index'], 'unique', 'targetAttribute' => ['index', 'litera'], 'message' => 'Данный индекс уже заведен в базу данных!'],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-//            'id' => 'ИД-операции',
-            'index' => 'Индекс изделия',
-            'litera' => 'Обозначение изделия',
-        ];
-    }
-
     public static function getDataByIndex($index)
     {
         $model = self::find(['index' => $index]);
@@ -59,5 +20,20 @@ class Index extends \yii\db\ActiveRecord
         return null;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getIndexLitera($id)
+    {
+        return Index::find()->where(['id' => $id])->all();
+    }
 
+    /**
+     * @inheritdoc
+     */
+    public function getIndexIndication($arr)
+    {
+        $query = Sheet::find()->select(['id'])->where(['index' => $arr[0]['index']])->andWhere(['indication' => $arr[0]['litera']])->all();
+        return ArrayHelper::getColumn($query, 'id');
+    }
 }

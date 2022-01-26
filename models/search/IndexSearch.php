@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models;
+namespace app\models\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Agent;
+use app\models\Index;
 
 /**
- * AgentSearch represents the model behind the search form of `app\models\Agent`.
+ * IndexSearch represents the model behind the search form of `app\models\Index`.
  */
-class AgentSearch extends Agent
+class IndexSearch extends Index
 {
     /**
      * @inheritdoc
@@ -18,8 +18,7 @@ class AgentSearch extends Agent
     public function rules()
     {
         return [
-//            [['id'], 'integer'],
-            [['number_agent', 'address', 'name_agent'], 'safe'],
+            [['index', 'litera'], 'safe'],
         ];
     }
 
@@ -41,13 +40,24 @@ class AgentSearch extends Agent
      */
     public function search($params)
     {
-        $query = Agent::find();
+        $session = Yii::$app->session;
+
+        if (!isset($params['IndexSearch'])) {
+            if ($session->has('IndexSearch')){
+                $params['IndexSearch'] = $session['IndexSearch'];
+            }
+        }
+        else {
+            $session->set('IndexSearch', $params['IndexSearch']);
+        }
+
+        $query = Index::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['id' => SORT_ASC]],
+            'sort' => ['defaultOrder' => ['index' => SORT_ASC]],
         ]);
 
         $this->load($params);
@@ -63,9 +73,8 @@ class AgentSearch extends Agent
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['ilike', 'number_agent', $this->number_agent])
-            ->andFilterWhere(['ilike', 'address', $this->address])
-            ->andFilterWhere(['ilike', 'name_agent', $this->name_agent]);
+        $query->andFilterWhere(['ilike', 'index', $this->index])
+            ->andFilterWhere(['ilike', 'litera', $this->litera]);
 
         return $dataProvider;
     }

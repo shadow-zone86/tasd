@@ -2,9 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
+use yii\widgets\MaskedInput;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SheetSearch */
+/* @var $model app\models\search\SheetSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -15,119 +18,248 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'user') ?>
-
-    <?= $form->field($model, 'date_time') ?>
-
-    <?= $form->field($model, 'form') ?>
-
-    <?= $form->field($model, 'number_form') ?>
-
-    <?php // echo $form->field($model, 'original_number') ?>
-
-    <?php // echo $form->field($model, 'made_form') ?>
-
-    <?php // echo $form->field($model, 'roll') ?>
-
-    <?php // echo $form->field($model, 'copy') ?>
-
-    <?php // echo $form->field($model, 'number_copy') ?>
-
-    <?php // echo $form->field($model, 'scene') ?>
-
-    <?php // echo $form->field($model, 'date_made') ?>
-
-    <?php // echo $form->field($model, 'date_check') ?>
-
-    <?php // echo $form->field($model, 'number_check') ?>
-
-    <?php // echo $form->field($model, 'passport') ?>
-
-    <?php // echo $form->field($model, 'agent') ?>
-
-    <?php // echo $form->field($model, 'density') ?>
-
-    <?php // echo $form->field($model, 'read') ?>
-
-    <?php // echo $form->field($model, 'na2so3') ?>
-
-    <?php // echo $form->field($model, 'ag') ?>
-
-    <?php // echo $form->field($model, 'ov') ?>
-
-    <?php // echo $form->field($model, 'ss') ?>
-
-    <?php // echo $form->field($model, 's') ?>
-
-    <?php // echo $form->field($model, 'n_s') ?>
-
-    <?php // echo $form->field($model, 'dsp') ?>
-
-    <?php // echo $form->field($model, 'k') ?>
-
-    <?php // echo $form->field($model, 'kt') ?>
-
-    <?php // echo $form->field($model, 'sk') ?>
-
-    <?php // echo $form->field($model, 'hiccupped') ?>
-
-    <?php // echo $form->field($model, 'ctencil') ?>
-
-    <?php // echo $form->field($model, 'work_ctencil') ?>
-
-    <?php // echo $form->field($model, 'defective_ctencil') ?>
-
-    <?php // echo $form->field($model, 'glue') ?>
-
-    <?php // echo $form->field($model, 'block') ?>
-
-    <?php // echo $form->field($model, 'gloset') ?>
-
-    <?php // echo $form->field($model, 'shelf') ?>
-
-    <?php // echo $form->field($model, 'cell') ?>
-
-    <?php // echo $form->field($model, 'index') ?>
-
-    <?php // echo $form->field($model, 'indication') ?>
-
-    <?php // echo $form->field($model, 'xxx') ?>
-
-    <?php // echo $form->field($model, 'number_letter') ?>
-
-    <?php // echo $form->field($model, 'prizn_document') ?>
-
-    <?php // echo $form->field($model, 'cover_letter') ?>
-
-    <?php // echo $form->field($model, 'accomp_letter') ?>
-
-    <?php // echo $form->field($model, 'fasc') ?>
-
-    <?php // echo $form->field($model, 'adress') ?>
-
-    <?php // echo $form->field($model, 'data_made') ?>
-
-    <?php // echo $form->field($model, 'nama_mkf') ?>
-
-    <?php // echo $form->field($model, 'note') ?>
-
-    <?php // echo $form->field($model, 'action') ?>
-
-    <?php // echo $form->field($model, 'key1') ?>
-
-    <?php // echo $form->field($model, 'key2') ?>
-
-    <?php // echo $form->field($model, 'key3') ?>
-
-    <?php // echo $form->field($model, 'key4') ?>
-
-    <?php // echo $form->field($model, 'key5') ?>
+    <div class="row">
+        <div class="col-md-3">
+            <?php
+            echo $form->field($model, 'form')->widget(Select2::className(), [
+                'data' => $mkf,
+                'maintainOrder' => true,
+                'options' => [
+                    'placeholder' => 'Укажите вид МКФ ...',
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                ],
+            ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'original_number'); ?>
+        </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'made_form')->widget(Select2::className(), [
+                    'data' => $agent,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите изготовителя МКФ ...',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'roll')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'copy')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'date_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
+                                                 ->widget(DatePicker::className(), [
+                                                     'options' => [
+                                                         'class' => 'form-control',
+                                                     ],
+                                                     'language' => 'ru',
+                                                     'dateFormat' => 'dd.MM.yyyy',
+                                                 ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'date_check')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
+                                                  ->widget(DatePicker::className(), [
+                                                      'options' => [
+                                                          'class' => 'form-control',
+                                                      ],
+                                                      'language' => 'ru',
+                                                      'dateFormat' => 'dd.MM.yyyy',
+                                                  ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'number_check')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'agent')->widget(Select2::className(), [
+                    'data' => $agent,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите поставщика документации ...',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'density')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'na2so3')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'ag')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'ov')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'ss')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 's')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'n_s')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'dsp')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'k')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'kt')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'sk')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'hiccupped')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'ctencil')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'work_ctencil')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'defective_ctencil')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'glue')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'block')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'gloset')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'shelf')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'cell')->textInput(['type' => 'number']); ?>
+        </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'index')->widget(Select2::className(), [
+                    'data' => $index,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите индекс изделия ...',
+                        'onchange' => '
+                            $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
+                                $("select#sheet-indication").html(data).sort(function(a, b) { 
+                                    return a.text == b.text ? 0: a.text < b.text ? -1 :1 
+                                });
+                            });
+                        ',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'indication')->widget(Select2::className(), [
+                    'data' => $indication,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите обозначение ...',
+                        'id' => 'sheet-indication',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'prizn_document')->widget(Select2::className(), [
+                    'data' => $attribute,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите признак документации ...',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'accomp_letter'); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'fasc'); ?>
+        </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'adress')->widget(Select2::className(), [
+                    'data' => $agent,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите адрес ...',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'data_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
+                                                  ->widget(DatePicker::className(), [
+                                                      'options' => [
+                                                          'class' => 'form-control',
+                                                      ],
+                                                      'language' => 'ru',
+                                                      'dateFormat' => 'dd.MM.yyyy',
+                                                  ]);
+            ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'nama_mkf'); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'note'); ?>
+        </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'action')->widget(Select2::className(), [
+                    'data' => $action,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите вид задания ...',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]);
+            ?>
+        </div>
+    </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -18,7 +18,6 @@ body {
 .shadowzone {
     padding: 0px 100px 0px 100px;
     background: linear-gradient(200deg, #ebebeb, #ebebeb);
-    /*width: 95%;*/
 }
 
 .footer {
@@ -43,7 +42,6 @@ body {
     font-style: italic;
 }
 
-/* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
     top: 1px;
@@ -97,7 +95,6 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
-/* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
     padding: 15px;
     border: none;
@@ -125,11 +122,6 @@ a.desc:after {
     position: absolute;
     float: left;
     background: url("../images/fon_top_menu.png");
-    /*margin-top:50px;*/
-    /*border: 1px solid rgba(0, 0, 0, .15);*/
-    /*border-width: 0 1px 1px;*/
-    /*border-radius: 0 0 4px 4px;*/
-    /*box-shadow: 0 6px 12px rgba(0, 0, 0, .175);*/
     display: block;
 }
 
@@ -154,4 +146,160 @@ a {
     z-index: 3;
     color: #ff5b23;
     background-color: black;
+}
+
+.coca_cola {
+    border-width: 1px;
+    border-color: red;
+    border-style: solid;
+    margin: 5px;
+    background-color: #dca7a7;
+}
+
+.seven_up {
+    border-width: 1px;
+    border-color: mediumspringgreen;
+    border-style: solid;
+    margin: 5px;
+    background-color: #93c3cd;
+}
+
+.pepsi {
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    margin: 5px;
+    background-color: #c5ddfc;
+}
+
+.sprite {
+    border-width: 1px;
+    border-color: #00aa00;
+    border-style: solid;
+    margin: 5px;
+    background-color: #ddffdd;
+}
+
+.unvisible_input {
+    display: none;
+}
+
+.my_width_ddm {
+    min-width: 120px;
+    left: -108px;
+}
+
+.btn-falcon:hover {
+    color: #000000;
+    background-color: #ffa756;
+    border-color: #000000;
+}
+
+.btn-falcon {
+    color: #ffffff;
+    background-color: #ff5b23;
+    border-color: #000000;
+}
+
+.search-form {
+    display: none;
+}
+
+.my-text-decoration {
+    color: #000000;
+}
+
+#modal-shadow-zone {
+    position: absolute;
+    width: 500px!important;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.minnesota-active {
+    color: #ff5b23;
+}
+
+.minnesota-margin {
+    margin-top: 20px;
+}
+
+.checkbox {
+    position: relative;
+    display: block;
+    margin-top: -4px;
+    margin-bottom: 5px;
+}
+
+#entrancereport-xxx {
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    max-height: 100px;
+    flex-direction: column;
+}
+
+#entrancereport-type_documentation {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    max-height: 100px;
+    flex-direction: column;
+}
+
+.minnesota-column-percent-18 {
+    white-space: normal;
+    width: 18%;
+    min-width: 18%;
+    max-width: 18%;
+}
+
+.minnesota-column-percent-22 {
+    white-space: normal;
+    width: 22.5%;
+    min-width: 22.5%;
+    max-width: 22.5%;
+}
+
+.minnesota-column-percent-7 {
+    white-space: normal;
+    width: 8.3%;
+    min-width: 8.3%;
+    max-width: 8.3%;
+}
+
+.minnesota-column-percent-7 {
+    white-space: normal;
+    width: 7%;
+    min-width: 7%;
+    max-width: 7%;
+}
+
+.minnesota-column-percent-3 {
+    white-space: normal;
+    width: 3%;
+    min-width: 3%;
+    max-width: 3%;
+}
+
+#minnesota-inspector-date-check {
+    background: white;
+}
+
+table.detail-view th {
+    width: 25%;
+}
+
+table.detail-view td {
+    width: 75%;
+}
+
+.minnesota-excel-center {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.all-blacks {
+    color: #212529 !important;
 }

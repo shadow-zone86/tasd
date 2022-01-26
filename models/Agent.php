@@ -2,53 +2,43 @@
 
 namespace app\models;
 
-use Yii;
+use app\models\base\AgentBase;
+use yii\helpers\ArrayHelper;
 
-/**
- * This is the model class for table "table_agent".
- *
- * @property int $id Id-операции
- * @property string $number_agent
- * @property string $address
- * @property string $name_agent
- */
-class Agent extends \yii\db\ActiveRecord
+class Agent extends AgentBase
 {
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public function getNameAgent($id)
     {
-        return 'table_agent';
+        return Agent::find()->where(['id' => $id])->all();
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function getMadeForm($name_agent)
     {
-        return [
-//            [['id', 'number_agent', 'name_agent'], 'required'],
-            [['number_agent', 'name_agent'], 'required'],
-//            [['id'], 'default', 'value' => null],
-//            [['id', 'number_agent'], 'integer'],
-            [['number_agent'], 'integer'],
-            [['address', 'name_agent'], 'string'],
-//            [['id', 'number_agent'], 'unique'],
-            [['number_agent'], 'unique'],
-        ];
+        $query = Sheet::find()->select(['made_form'])->where(['made_form' => $name_agent])->all();
+        return ArrayHelper::getColumn($query, 'made_form');
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function getAgent($name_agent)
     {
-        return [
-//            'id' => 'ИД-операции',
-            'number_agent' => 'Номер предприятия',
-            'address' => 'Адрес предприятия',
-            'name_agent' => 'Наименование предприятия',
-        ];
+        $query = Sheet::find()->select(['agent'])->where(['agent' => $name_agent])->all();
+        return ArrayHelper::getColumn($query, 'agent');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAdress($name_agent)
+    {
+        $query = Sheet::find()->select(['adress'])->where(['adress' => $name_agent])->all();
+        return ArrayHelper::getColumn($query, 'adress');
     }
 }

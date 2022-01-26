@@ -3,14 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Inspector;
-use app\models\InspectorSearch;
+use app\models\Sheet;
+use app\models\search\SheetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InspectorController implements the CRUD actions for Inspector model.
+ * InspectorController implements the CRUD actions for Sheet model.
  */
 class InspectorController extends Controller
 {
@@ -30,12 +30,12 @@ class InspectorController extends Controller
     }
 
     /**
-     * Lists all Inspector models.
+     * Lists all Sheet models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new InspectorSearch();
+        $searchModel = new SheetSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $this->layout='base';
@@ -46,7 +46,7 @@ class InspectorController extends Controller
     }
 
     /**
-     * Displays a single Inspector model.
+     * Displays a single Sheet model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,13 +60,13 @@ class InspectorController extends Controller
     }
 
     /**
-     * Creates a new Inspector model.
+     * Creates a new Sheet model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Inspector();
+        $model = new Sheet();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -79,7 +79,7 @@ class InspectorController extends Controller
     }
 
     /**
-     * Updates an existing Inspector model.
+     * Updates an existing Sheet model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -104,7 +104,7 @@ class InspectorController extends Controller
     }
 
     /**
-     * Deletes an existing Inspector model.
+     * Deletes an existing Sheet model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -118,18 +118,32 @@ class InspectorController extends Controller
     }
 
     /**
-     * Finds the Inspector model based on its primary key value.
+     * Finds the Sheet model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Inspector the loaded model
+     * @return Sheet the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Inspector::findOne($id)) !== null) {
+        if (($model = Sheet::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Clear filter.
+     * @return mixed
+     */
+    public function actionClearFilter()
+    {
+        $session = Yii::$app->session;
+        if ($session->has('SheetSearch')) {
+            $session->remove('SheetSearch');
+        }
+
+        return $this->redirect('index');
     }
 }

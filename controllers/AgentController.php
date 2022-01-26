@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Agent;
-use app\models\AgentSearch;
+use app\models\search\AgentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,8 +68,6 @@ class AgentController extends Controller
     {
         $model = new Agent();
 
-//        $model->id = Agent::find()->select('max(id)')->scalar()+1;
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -110,8 +108,34 @@ class AgentController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = new Agent();
+        $name_agent = $model->getNameAgent($id);
+        $made_form = $model->getMadeForm($name_agent[0]['number_agent']);
+        $agent = $model->getAgent($name_agent[0]['number_agent']);
+        $adress = $model->getAdress($name_agent[0]['number_agent']);
 
+        if (empty($made_form) && empty($agent) && empty($adress)) {
+            $this->findModel($id)->delete();
+            \Yii::$app->session->setFlash('report_message', '    
+                <div class="alert alert-success" role="alert">
+                    Запись успешно удалена!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            ');
+            $this->layout='base';
+            return $this->redirect(['index']);
+        }
+
+        \Yii::$app->session->setFlash('report_message', '    
+            <div class="alert alert-danger" role="alert">
+                Удаление невозможно! Есть зависимые записи.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        ');
         $this->layout='base';
         return $this->redirect(['index']);
     }
@@ -130,5 +154,19 @@ class AgentController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Clear filter.
+     * @return mixed
+     */
+    public function actionClearFilter()
+    {
+        $session = Yii::$app->session;
+        if ($session->has('AgentSearch')) {
+            $session->remove('AgentSearch');
+        }
+
+        return $this->redirect('index');
     }
 }

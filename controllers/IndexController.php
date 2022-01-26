@@ -4,10 +4,12 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Index;
-use app\models\IndexSearch;
+use app\models\search\IndexSearch;
+use yii\bootstrap\ActiveForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * IndexController implements the CRUD actions for Index model.
@@ -68,8 +70,6 @@ class IndexController extends Controller
     {
         $model = new Index();
 
-//        $model->id = Index::find()->select('max(id)')->scalar()+1;
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -110,8 +110,32 @@ class IndexController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = new Index();
+        $arr = $model->getIndexLitera($id);
+        $check = $model->getIndexIndication($arr);
 
+        if (empty($check)) {
+            $this->findModel($id)->delete();
+            \Yii::$app->session->setFlash('report_message', '
+                <div class="alert alert-success" role="alert">
+                    Запись успешно удалена!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            ');
+            $this->layout='base';
+            return $this->redirect(['index']);
+        }
+
+        \Yii::$app->session->setFlash('report_message', '    
+            <div class="alert alert-danger" role="alert">
+                Удаление невозможно! Есть зависимые записи.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        ');
         $this->layout='base';
         return $this->redirect(['index']);
     }
@@ -130,5 +154,19 @@ class IndexController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Clear filter.
+     * @return mixed
+     */
+    public function actionClearFilter()
+    {
+        $session = Yii::$app->session;
+        if ($session->has('IndexSearch')) {
+            $session->remove('IndexSearch');
+        }
+
+        return $this->redirect('index');
     }
 }

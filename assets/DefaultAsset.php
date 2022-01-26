@@ -23,10 +23,11 @@ class DefaultAsset extends AssetBundle
         'css/site.css',
         'css/style.css',
         'css/home.css',
-        'css/font-awesome.min.css'
+        'css/font-awesome.min.css',
     ];
     public $js = [
-        'js/scripts.js'
+        'js/scripts.js',
+        'js/modal.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

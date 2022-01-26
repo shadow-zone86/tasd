@@ -7,18 +7,15 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Index */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ведение МКФ', 'url' => ['sheet/index']];
-$this->params['breadcrumbs'][] = ['label' => 'Ведение справочника индексов изделий', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $model->index;
 ?>
-<div class="index-view" style="margin-top: 20px;">
+<div class="index-view minnesota-margin">
 
     <ol class="breadcrumb">
         <li><a href="/">Главная</a></li>
         <li><a href="<?= Url::toRoute("/site/manual")?>">Справочники</a></li>
-        <li><a href="<?= Url::toRoute("/agent/index")?>">Ведение справочника индексов изделий</a></li>
-        <li class="active" style="color: #ff5b23;"><?= Html::encode($this->title) ?></li>
+        <li><a href="<?= Url::toRoute("/index/index")?>">Ведение справочника индексов изделий</a></li>
+        <li class="minnesota-active"><?= Html::encode($this->title) ?></li>
     </ol>
 
     <p>
@@ -30,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Закрыть', ['index'], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?= DetailView::widget([

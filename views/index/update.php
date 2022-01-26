@@ -7,18 +7,14 @@ use yii\helpers\Url;
 /* @var $model app\models\Index */
 
 $this->title = 'Редактировать';
-$this->params['breadcrumbs'][] = ['label' => 'Ведение МКФ', 'url' => ['sheet/index']];
-$this->params['breadcrumbs'][] = ['label' => 'Ведение справочника индексов изделий', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="index-update" style="margin-top: 20px;">
+<div class="index-update minnesota-margin">
 
     <ol class="breadcrumb">
         <li><a href="/">Главная</a></li>
         <li><a href="<?= Url::toRoute("/site/manual")?>">Справочники</a></li>
-        <li><a href="<?= Url::toRoute("/agent/index")?>">Ведение справочника индексов изделий</a></li>
-        <li class="active" style="color: #ff5b23;"><?= Html::encode($this->title) ?></li>
+        <li><a href="<?= Url::toRoute("/index/index")?>">Ведение справочника индексов изделий</a></li>
+        <li class="minnesota-active"><?= Html::encode($this->title) ?></li>
     </ol>
 
     <?= $this->render('_form', [

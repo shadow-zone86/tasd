@@ -1,35 +1,24 @@
 <?php
-    /* @var $this yii\web\View */
-    /* @var $searchModel app\models\AgentSearch */
-    /* @var $dataProvider yii\data\ActiveDataProvider */
 
-    $this->title = 'Подбор МКФ по обозначению изделия';
-    $this->params['breadcrumbs'][] = ['label' => 'Ведение МКФ', 'url' => ['sheet/index']];
-    $this->params['breadcrumbs'][] = $this->title;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\IndexReport */
+
 ?>
 
-<div style="display: none;">
-    <?php
-        use app\models\Index;
-        use yii\helpers\ArrayHelper;
-        include 'indicationreport.php';
-    ?>
-</div>
+<div class="indication-report minnesota-margin">
 
-<div style="margin-top: 50px; margin-bottom: 50px;">
-    <form action="indicationreport" method="get">
-        <b>Обозначение изделия</b>
-        <select name="f_indication">
-            <?php
-                $query = Index::findBySql("SELECT DISTINCT litera FROM table_index ORDER BY litera")->all();
-                $indication = ArrayHelper::getColumn($query, 'litera');
-                foreach ($indication as $i) {
-                    echo '<option>' . $i . '</option>';
-            }
-            ?>
-        </select>
-        <br>
-        <br>
-        <p><input type="submit" value="Печать" class="btn btn-success"></p>
-    </form>
+    <ol class="breadcrumb">
+        <li><a href="/">Главная</a></li>
+        <li><a href="<?= Url::toRoute("/site/report")?>">Отчеты</a></li>
+        <li class="minnesota-active"><?= Html::encode($this->title) ?></li>
+    </ol>
+
+    <?= $this->render('_indication', [
+        'model' => $model,
+        'indication' => $indication,
+    ]) ?>
+
 </div>

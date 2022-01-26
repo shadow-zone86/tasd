@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\assets\BaseAsset;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
 
 BaseAsset::register($this);
 ?>
@@ -25,28 +26,6 @@ BaseAsset::register($this);
     <body>
     <?php $this->beginBody() ?>
     <header>
-    <!--
-        <div class="container">
-            <div class="row header_top">
-                <div class="logo col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <a href="<?= Url::toRoute('/site/index')?>"><img src="../images/logo2.png"></a>
-                </div>
-                <div class="btn_top_wrap col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <div class="btn_and_search">
-                        <div class="btn_top">
-                            <?php
-                                if (Yii::$app->user->isGuest) {
-                                    echo '<a href="'.Url::toRoute("/site/login").'"><i class="glyphicon glyphicon-lock"></i>Войти</a>';
-                                } else {
-                                    echo '<a data-method="post" href="'.Url::toRoute("/site/logout").'"><i class="glyphicon glyphicon-lock"></i>Выйти (' . Yii::$app->user->identity->accessToken . ')</a>';
-                                }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
         <div class="container-fluid menu_top">
             <div class="container">
                 <div class="row">
@@ -55,7 +34,7 @@ BaseAsset::register($this);
                         NavBar::begin([
                             'brandUrl' => Yii::$app->homeUrl,
                             'options' => [
-                                'class' => ' ',
+                                'class' => 'minnesota-wild',
                             ],
                         ]);
                         if (Yii::$app->user->isGuest) {
@@ -92,30 +71,25 @@ BaseAsset::register($this);
         </div>
     </header>
 
-<!--    <div class="container">-->
+    <?php
+        Modal::begin([
+            'headerOptions' => ['id' => 'modalHeader'],
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            'clientOptions' => [
+                'backdrop' => 'static',
+                'keyboard' => FALSE,
+            ],
+        ]);
+        echo "<div id='modalContent'></div>";
+        Modal::end();
+    ?>
+
     <div class="shadowzone">
-        <div class="row">
-<!--            <div class="col-lg-12 contant_wrap">-->
-<!--                <div class="navigation">-->
-<!--                    <ul>-->
-<!--                        <li><a href="/"><i class="glyphicon glyphicon-home"></i></a></li>-->
-<!--                        <li><a href="#">Справочники</a></li>-->
-<!--                        <li><span>Рюкзаки</span></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-        </div>
         <div class="row">
             <?= $content; ?>
         </div>
     </div>
-
-<!--    <div class="container-fluid write_email_and_sseti">-->
-<!--        <div class="container">-->
-<!--            <div class="row write_email_and_sseti_wrap">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 
     <div class="container-fluid footer">
         <div class="container">

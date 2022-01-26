@@ -4,15 +4,11 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use yii\web\UploadedFile;
-use app\models\UploadForm;
-use yii\helpers\FileHelper;
 
 class SiteController extends Controller
 {
@@ -134,29 +130,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Загрузка файлов
-     */
-    public function actionUpload() {
-        $model = new UploadForm();
-        $files = FileHelper::findFiles('uploads/');
-
-        if (Yii::$app->request->isPost) {
-            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
-            if ($model->upload()) {
-                return;
-            }
-//            $model->upload();
-//            return $this->render('upload', ['model' => $model]);
-        }
-        $this->layout='base';
-        return $this->render('upload', [
-            'model' => $model,
-            'files' => $files,
-        ]);
-    }
-
-    /**
-     * Справочники
+     * Displays guide page.
+     *
+     * @return string
      */
     public function actionManual()
     {
@@ -165,7 +141,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Отчеты
+     * Displays report page.
+     *
+     * @return string
      */
     public function actionReport()
     {

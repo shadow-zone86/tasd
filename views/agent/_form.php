@@ -12,14 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'number_agent')->textInput() ?>
+    <?= $form->field($model, 'number_agent')->textInput()->label('Номер предприятия <span class="minnesota-active">*</span>') ?>
 
-    <?= $form->field($model, 'name_agent')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'name_agent')->textarea(['rows' => 6])->label('Наименование предприятия <span class="minnesota-active">*</span>') ?>
 
     <?= $form->field($model, 'address')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Закрыть', ['index'], ['class' => 'btn btn-info']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

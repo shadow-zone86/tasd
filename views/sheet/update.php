@@ -7,21 +7,28 @@ use yii\helpers\Url;
 /* @var $model app\models\Sheet */
 
 $this->title = 'Редактировать';
-$this->params['breadcrumbs'][] = ['label' => 'Ведение МКФ', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
-<div class="sheet-update" style="margin-top: 20px;">
+<div class="sheet-update minnesota-margin">
 
     <ol class="breadcrumb">
         <li><a href="/">Главная</a></li>
-        <li><a href="<?= Url::toRoute("/sheet/index")?>">Ведение МКФ</a></li>
-        <li class="active" style="color: #ff5b23;"><?= Html::encode($this->title) ?></li>
+        <li><a href="<?= Url::toRoute("index")?>">Ведение МКФ</a></li>
+        <li class="minnesota-active"><?= Html::encode($this->title) ?></li>
     </ol>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'arr' => $arr,
+        'disable' => $disable,
+        'indication' => $indication,
+        'number' => $number,
+        'secrecy' => $secrecy,
+        'agent' => $agent,
+        'index' => $index,
+        'action' => $action,
+        'attribute' => $attribute,
+        'type' => $type,
+        'window' => $window,
+        'modelIndex' => $modelIndex,
     ]) ?>
 
 </div>

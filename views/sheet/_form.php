@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 use yii\jui\DatePicker;
@@ -16,237 +17,163 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div style="display: none;">
-        <?= $form->field($model, 'user')->textInput() ?>
-        <?= $form->field($model, 'date_time')->textInput() ?>
-        <?= $form->field($model, 'form')->textInput(['maxlength' => true]) ?>
-    </div>
-
     <div class="row">
-        <div class="col-md-2">
-            <?= $form->field($model, 'number_form')->textInput(['maxlength' => true]) ?>
+        <div class="col-md-2 unvisible_input">
+            <!-- Данные поля нужно обязательно отображать на форме для корректной работы JavaScript -->
+            <?= $form->field($model, 'form')->textInput(['id' => 'minnesotaForm', 'disabled' => false]) ?>
+            <?= $form->field($model, 'key1')->textInput(['id' => 'minnesotaKey1', 'disabled' => true]) ?>
+            <?= $form->field($model, 'key2')->textInput(['id' => 'minnesotaKey2', 'disabled' => false]) ?>
+            <?= $form->field($model, 'key3')->textInput(['id' => 'minnesotaKey3', 'disabled' => true]) ?>
+            <?= $form->field($model, 'key4')->textInput(['id' => 'minnesotaKey4', 'disabled' => true]) ?>
+            <?= $form->field($model, 'key5')->textInput(['id' => 'minnesotaKey5', 'disabled' => true]) ?>
         </div>
 
         <div class="col-md-2">
             <?php
-                $items = [
-                    'Основной'=>'Основной',
-                    'Запасной'=>'Запасной',
-                    //'Дубликат'=>'Дубликат',
-                    'А-Дубликат основной'=>'А-Дубликат основной',
-                    'Б-Дубликат запасной'=>'Б-Дубликат запасной'
-                ];
-                $params = [
-                    'prompt' => 'Укажите номер экземпляра'
-                ];
-                echo $form->field($model, 'number_copy')->dropDownList($items, $params);
-            ?>
-        </div>
-
-        <?php
-        $this->registerJs('
-                    jQuery(document).on("change" ,"#'. Html::getInputId($model, 'form') . '" , function(){
-                        var first = $("#'. Html::getInputId($model, 'number_form').'").val();
-                        var form = $("#'. Html::getInputId($model, 'form').'").val();
-                        var second = "";
-                        if (form == "Рулонный микрофильм") {
-                            $("#'.Html::getInputId($model, 'key1').'").val(first.substr(0,3));
-                            $("#'.Html::getInputId($model, 'key2').'").val(first.substr(4,6));
-                            $("#'.Html::getInputId($model, 'key3').'").val(first.substr(11,3));
-                            $("#'.Html::getInputId($model, 'key4').'").val(second);
-                            $("#'.Html::getInputId($model, 'key5').'").val(first.substr(15,1));
-                        } else {
-                            $("#'.Html::getInputId($model, 'key1').'").val(first.substr(0,3));
-                            $("#'.Html::getInputId($model, 'key2').'").val(first.substr(4,6));
-                            $("#'.Html::getInputId($model, 'key3').'").val(first.substr(11,3));
-                            $("#'.Html::getInputId($model, 'key4').'").val(first.substr(15,3));
-                            $("#'.Html::getInputId($model, 'key5').'").val(first.substr(19,1));
-                        }
-                    });
-                    jQuery(document).on("change" ,"#'. Html::getInputId($model, 'number_form') . '" , function(){
-                        var first = $("#'. Html::getInputId($model, 'number_form').'").val();
-                        var form = $("#'. Html::getInputId($model, 'form').'").val();
-                        var second = "";
-                        if (form == "Рулонный микрофильм") {
-                            $("#'.Html::getInputId($model, 'key1').'").val(first.substr(0,3));
-                            $("#'.Html::getInputId($model, 'key2').'").val(first.substr(4,6));
-                            $("#'.Html::getInputId($model, 'key3').'").val(first.substr(11,3));
-                            $("#'.Html::getInputId($model, 'key4').'").val(second);
-                            $("#'.Html::getInputId($model, 'key5').'").val(first.substr(15,1));
-                        } else {
-                            $("#'.Html::getInputId($model, 'key1').'").val(first.substr(0,3));
-                            $("#'.Html::getInputId($model, 'key2').'").val(first.substr(4,6));
-                            $("#'.Html::getInputId($model, 'key3').'").val(first.substr(11,3));
-                            $("#'.Html::getInputId($model, 'key4').'").val(first.substr(15,3));
-                            $("#'.Html::getInputId($model, 'key5').'").val(first.substr(19,1));
-                        }
-                        var key5 = $("#'. Html::getInputId($model, 'key5').'").val();
-                        var pp1 = "Документация на изделие";
-                        var pp2 = "Документация на изделие";
-                        var pp3 = "Нормативно-техническая документация";
-                        var pp4 = "Нормативно-техническая документация";
-                        var pp5 = "Нормативно-техническая документация";
-                        var pp6 = "Нормативно-техническая документация";
-                        var pp7 = "Уникальная и особо ценная документация";
-                        var pp8 = "Аварийная документация";
-                        switch(key5) {
-                            case "1":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp1);
-                                break;
-                            case "2":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp2);
-                                break;                              
-                            case "3":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp3);
-                                break;                             
-                            case "4":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp4);
-                                break;                                  
-                            case "5":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp5);
-                                break;                             
-                            case "6":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp6);
-                                break;                                 
-                            case "7":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp7);
-                                break;                               
-                            case "8":
-                                $("#'.Html::getInputId($model, 'prizn_document').'").val(pp8);
-                                break;                            
-                        }
-                    });
-                    jQuery(document).on("change" ,"#'. Html::getInputId($model, 'number_copy') . '" , function(){
-                        var nform = $("#'. Html::getInputId($model, 'number_form').'").val();
-                        var ncopy = $("#'. Html::getInputId($model, 'number_copy').'").val();
-                        var form = $("#'. Html::getInputId($model, 'form').'").val();
-                        if (form == "Рулонный микрофильм") {
-                            var plus = nform.substr(0,16) + "-" + ncopy.substr(0,1);
-                        } else {
-                            var plus = nform.substr(0,20) + "-" + ncopy.substr(0,1);
-                        }   
-                        $("#'.Html::getInputId($model, 'number_form').'").val(plus);
-                    });
-                ');
-        ?>
-
-        <div style="display: none;">
-            <?= $form->field($model, 'key1')->textInput() ?>
-            <?= $form->field($model, 'key2')->textInput() ?>
-            <?= $form->field($model, 'key3')->textInput() ?>
-            <?= $form->field($model, 'key4')->textInput() ?>
-            <?= $form->field($model, 'key5')->textInput() ?>
-            <?php
-                $items = [
-                    'Негатив'=>'Негатив',
-                    'Позитив'=>'Позитив',
-                ];
-                $params = [
-                    'prompt' => 'Укажите вид изображения'
-                ];
-                echo $form->field($model, 'scene')->dropDownList($items, $params);
-            ?>
-            <?= $form->field($model, 'read')->textInput()->widget(MaskedInput::className(), [
-                'name' => 'masked-input',
-                'clientOptions' => [
-                    'alias' => 'decimal',
-                    'digits' => 4,
-                    'digitsOptional' => false,
-                    'radixPoint' => '.',
-                    'autoGroup' => true,
-                    'removeMaskOnSubmit' => 'true',
-                ],
-            ]);
-            ?>
-        </div>
-
-        <div class="col-md-2">
-            <?= $form->field($model, 'original_number')->textInput() ?>
-        </div>
-
-        <div class="col-md-2">
-            <?php
-                $items = [
-                    'ОВ'=>'Особой важности',
-                    'СС'=>'Совершенно секретно',
-                    'С'=>'Секретно',
-                    'Н/С'=>'Не секретно',
-                    'ДСП'=>'Для служебного пользования',
-                    'К'=>'Конфиденциально',
-                    'КТ'=>'Комерческая тайна',
-                    'СК'=>'Строго конфиденциально',
-                ];
-                $params = [
-                    'prompt' => 'Укажите гриф секретности МКФ'
-                ];
-                echo $form->field($model, 'xxx')->dropDownList($items, $params);
+                switch ($type) {
+                    case 0:
+                        echo $form->field($model, 'number_form')->widget(MaskedInput::className(), [
+                            'mask' => '999.999999-999-9-A',
+                            'options' => [
+                                'id' => 'minnesotaNumberForm',
+                                'disabled' => $disable,
+                            ],
+                        ]);
+                        break;
+                    case 1:
+                        echo $form->field($model, 'number_form')->widget(MaskedInput::className(), [
+                            'mask' => '999.999999-999-999-9-A',
+                            'options' => [
+                                'id' => 'minnesotaNumberForm',
+                                'disabled' => $disable,
+                            ],
+                        ]);
+                        break;
+                    default:
+                        echo $form->field($model, 'number_form')->textInput([
+                            'id' => 'minnesotaNumberForm',
+                            'maxlength' => true,
+                            'disabled' => $disable,
+                        ]);
+                        break;
+                }
             ?>
         </div>
 
         <div class="col-md-2">
             <?php
-                $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
-                $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-                //$params = ['prompt' => 'Укажите изготовителя МКФ'];
-                //echo $form->field($model, 'made_form')->dropDownList($items, $params);                
+                echo $form->field($model, 'number_copy')->widget(Select2::className(), [
+                    'data' => $number,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите номер экземпляра ...',
+                        'disabled' => $disable,
+                        'id' => 'minnesotaNumberCopy',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ])->label('Номер экземпляра <span class="minnesota-active">*</span>');
+            ?>
+        </div>
+
+        <div class="col-md-2">
+            <?= $form->field($model, 'original_number')->textInput(['disabled' => $disable]) ?>
+        </div>
+
+        <div class="col-md-2">
+            <?php
+                echo $form->field($model, 'xxx')->widget(Select2::className(), [
+                    'data' => $secrecy,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите гриф секретности МКФ ...',
+                        'disabled' => $disable,
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ])->label('Гриф МКФ <span class="minnesota-active">*</span>');
+            ?>
+        </div>
+
+        <div class="col-md-2">
+            <?php
                 echo $form->field($model, 'made_form')->widget(Select2::className(), [
-                    'data' => $items,
+                    'data' => $agent,
                     'maintainOrder' => true,
                     'options' => [
-                        'placeholder' => 'Укажите изготовителя МКФ ...'
+                        'placeholder' => 'Укажите изготовителя МКФ ...',
+                        'disabled' => $disable,
                     ],
                     'pluginOptions' => [
-                        'allowClear' => true
-                    ]
-                ]);                     
+                        'allowClear' => true,
+                    ],
+                ]);
             ?>
         </div>
 
         <div class="col-md-2">
             <?php
-                $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
-                $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-                //$params = ['prompt' => 'Укажите поставщика документации'];
-                //echo $form->field($model, 'agent')->dropDownList($items, $params);
                 echo $form->field($model, 'agent')->widget(Select2::className(), [
-                    'data' => $items,
+                    'data' => $agent,
                     'maintainOrder' => true,
                     'options' => [
-                        'placeholder' => 'Укажите поставщика документации ...'
+                        'placeholder' => 'Укажите поставщика документации ...',
+                        'disabled' => $disable,
+                        'id' => 'minnesotaAgent',
                     ],
                     'pluginOptions' => [
-                        'allowClear' => true
-                    ]
-                ]);                
+                        'allowClear' => true,
+                    ],
+                ]);
             ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'copy')->textInput() ?>
+            <?= $form->field($model, 'copy')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'roll')->textInput() ?>
+            <?= $form->field($model, 'roll')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'passport')->textInput() ?>
+            <?= $form->field($model, 'passport')->textInput(['disabled' => $disable]) ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'date_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999',])->widget(DatePicker::className(), ['options'=>['class'=>'form-control',], 'language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]); ?>
+            <?= $form->field($model, 'date_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
+                                                 ->widget(DatePicker::className(), [
+                                                     'options' => [
+                                                         'class' => 'form-control',
+                                                         'disabled' => $disable,
+                                                     ],
+                                                     'language' => 'ru',
+                                                     'dateFormat' => 'dd.MM.yyyy',
+                                                 ]);
+            ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'date_check')->widget(MaskedInput::className(), ['mask' => '99.99.9999',])->widget(DatePicker::className(), ['options'=>['class'=>'form-control',], 'language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]); ?>
+            <?= $form->field($model, 'date_check')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
+                                                  ->widget(DatePicker::className(), [
+                                                      'options' => [
+                                                          'class'=>'form-control',
+                                                          'disabled' => $disable,
+                                                      ],
+                                                      'language' => 'ru',
+                                                      'dateFormat' => 'dd.MM.yyyy',
+                                                  ]);
+            ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'number_check')->textInput() ?>
+            <?= $form->field($model, 'number_check')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
     </div>
 
-    <div class="row" style="border-width: 1px; border-color: red; border-style: solid; margin: 5px; background-color: #dca7a7">
+    <div class="row coca_cola">
         <div class="col-md-4">
             <?= $form->field($model, 'density')->textInput()->widget(MaskedInput::className(), [
                 'name' => 'masked-input',
@@ -256,7 +183,10 @@ use kartik\select2\Select2;
                     'digitsOptional' => false,
                     'radixPoint' => '.',
                     'autoGroup' => true,
-                    'removeMaskOnSubmit' => 'true',
+                    'removeMaskOnSubmit' => true,
+                ],
+                'options' => [
+                    'disabled' => $disable,
                 ],
             ]); ?>
         </div>
@@ -270,7 +200,10 @@ use kartik\select2\Select2;
                     'digitsOptional' => false,
                     'radixPoint' => '.',
                     'autoGroup' => true,
-                    'removeMaskOnSubmit' => 'true',
+                    'removeMaskOnSubmit' => true,
+                ],
+                'options' => [
+                    'disabled' => $disable,
                 ],
             ]); ?>
         </div>
@@ -284,214 +217,217 @@ use kartik\select2\Select2;
                     'digitsOptional' => false,
                     'radixPoint' => '.',
                     'autoGroup' => true,
-                    'removeMaskOnSubmit' => 'true',
+                    'removeMaskOnSubmit' => true,
+                ],
+                'options' => [
+                    'disabled' => $disable,
                 ],
             ]); ?>
         </div>
     </div>
 
-    <div class="row" style="border-width: 1px; border-color: mediumspringgreen; border-style: solid; margin: 5px; background-color: #93c3cd">
+    <div class="row seven_up">
         <div class="col-md-3">
-            <?= $form->field($model, 'ov')->textInput() ?>
+            <?= $form->field($model, 'ov')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'ss')->textInput() ?>
+            <?= $form->field($model, 'ss')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 's')->textInput() ?>
+            <?= $form->field($model, 's')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'n_s')->textInput() ?>
+            <?= $form->field($model, 'n_s')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'dsp')->textInput() ?>
+            <?= $form->field($model, 'dsp')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'k')->textInput() ?>
+            <?= $form->field($model, 'k')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'kt')->textInput() ?>
+            <?= $form->field($model, 'kt')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'sk')->textInput() ?>
+            <?= $form->field($model, 'sk')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
     </div>
 
-    <div class="row" style="border-width: 1px; border-color: blue; border-style: solid; margin: 5px; background-color: #c5ddfc">
+    <div class="row pepsi">
         <div class="col-md-2">
-            <?= $form->field($model, 'hiccupped')->textInput() ?>
+            <?= $form->field($model, 'hiccupped')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'ctencil')->textInput() ?>
+            <?= $form->field($model, 'ctencil')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'work_ctencil')->textInput() ?>
+            <?= $form->field($model, 'work_ctencil')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'defective_ctencil')->textInput() ?>
+            <?= $form->field($model, 'defective_ctencil')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'glue')->textInput() ?>
+            <?= $form->field($model, 'glue')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
     </div>
 
-    <div class="row" style="border-width: 1px; border-color: #00aa00; border-style: solid; margin: 5px; background-color: #ddffdd">
+    <div class="row sprite">
         <div class="col-md-3">
-            <?= $form->field($model, 'block')->textInput() ?>
+            <?= $form->field($model, 'block')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'gloset')->textInput() ?>
+            <?= $form->field($model, 'gloset')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'shelf')->textInput() ?>
+            <?= $form->field($model, 'shelf')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model, 'cell')->textInput() ?>
+            <?= $form->field($model, 'cell')->textInput(['disabled' => $disable, 'type' => 'number']) ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-2">
-            <?= $form->field($model, 'number_letter')->textInput() ?>
+            <?= $form->field($model, 'number_letter')->textInput(['disabled' => $disable]) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'cover_letter')->textInput() ?>
+            <?= $form->field($model, 'cover_letter')->textInput(['disabled' => $disable]) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'accomp_letter')->textInput() ?>
+            <?= $form->field($model, 'accomp_letter')->textInput(['disabled' => $disable]) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'fasc')->textInput() ?>
+            <?= $form->field($model, 'fasc')->textInput(['disabled' => $disable]) ?>
         </div>
 
         <?php Pjax::begin(['id' => 'pjaxContent1']); ?>
-        <div class="col-md-2">
-            <table>
-                <tr>
-                    <td style="width: 500px">
-                        <?php 
-                            /*
-                            echo $form->field($model, 'index')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Index::find()->orderBy('index ASC')->all(), 'index', 'index'),
-                                [
-                                    'prompt' => 'Укажите индекс изделия',
-                                    'onchange' => '
-                                                $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
-                                                    $("select#sheet-indication").html(data).sort(function(a, b) { return a.text == b.text ? 0: a.text < b.text ? -1 :1 });
-                                                });'
-                                ]
-                            );
-                            */
-                            $madeForm = \app\models\Index::find()->orderBy('index ASC')->all();
-                            $items = \yii\helpers\ArrayHelper::map($madeForm, 'index', 'index');
-                            echo $form->field($model, 'index')->widget(Select2::className(), [
-                                'data' => $items,
-                                'maintainOrder' => true,
-                                'options' => [
-                                    'placeholder' => 'Укажите индекс изделия ...',
-                                    'onchange' => '
-                                                $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
-                                                    $("select#sheet-indication").html(data).sort(function(a, b) { return a.text == b.text ? 0: a.text < b.text ? -1 :1 });
-                                                });'   
-                                ],
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ]                             
-                            ]);
-                        ?>
-                    </td>
-                    <td style="width: 10px">
-                    </td>
-                    <td>
-                        <?= Html::a('<span class="glyphicon glyphicon-refresh"></span>', ['sheet/create'], ['class' => 'btn btn-danger', 'title' => \Yii::t('yii', 'Обновить')]); ?>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-2">
-            <?php 
-                //echo $form->field($model, 'indication')->dropDownList($arr, ['prompt' => '']);
-                echo $form->field($model, 'indication')->widget(Select2::className(), [
-                    'data' => $arr,
-                    'maintainOrder' => true,
-                    'options' => [
-                        'placeholder' => ''
-                    ],
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ]
-                ]);                  
-            ?>
-        </div>
+            <div class="col-md-2">
+                <?php
+                    echo $form->field($model, 'index')->widget(Select2::className(), [
+                        'data' => $index,
+                        'maintainOrder' => true,
+                        'options' => [
+                            'placeholder' => 'Укажите индекс изделия ...',
+                            'disabled' => $disable,
+                            'onchange' => '
+                                $.post("/sheet/lists?id='.'"+$(this).val(), function(data) {
+                                    $("select#sheet-indication").html(data).sort(function(a, b) { 
+                                        return a.text == b.text ? 0: a.text < b.text ? -1 :1 
+                                    });
+                                });
+                            ',
+                        ],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ]
+                    ])->label('Индекс <span class="minnesota-active">*</span>');
+                ?>
+            </div>
+            <div class="col-md-2">
+                <?php
+                    echo $form->field($model, 'indication')->widget(Select2::className(), [
+                        'data' => $indication,
+                        'maintainOrder' => true,
+                        'options' => [
+                            'placeholder' => 'Укажите обозначение ...',
+                            'disabled' => $disable,
+                        ],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ]
+                    ]);
+                ?>
+            </div>
         <?php Pjax::end(); ?>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'nama_mkf')->textInput() ?>
+            <?= $form->field($model, 'nama_mkf')->textInput(['disabled' => $disable]) ?>
         </div>
 
         <div class="col-md-2">
             <?php
-                $items = [
-                    'Принять на хранение'=>'Принять на хранение',
-                    'Переслать'=>'Переслать',
-                    'Уничтожить'=>'Уничтожить',
-                ];
-                $params = [
-                    'prompt' => 'Укажите вид задания'
-                ];
-                echo $form->field($model, 'action')->dropDownList($items, $params);
-            ?>
-        </div>
-
-        <div class="col-md-2">
-            <?php
-                $madeForm = \app\models\Agent::find()->orderBy('name_agent ASC')->all();
-                $items = \yii\helpers\ArrayHelper::map($madeForm, 'number_agent', 'name_agent');
-                //$params = ['prompt' => 'Укажите адрес'];
-                //echo $form->field($model, 'adress')->dropDownList($items, $params);
-                echo $form->field($model, 'adress')->widget(Select2::className(), [
-                    'data' => $items,
+                echo $form->field($model, 'action')->widget(Select2::className(), [
+                    'data' => $action,
                     'maintainOrder' => true,
                     'options' => [
-                        'placeholder' => 'Укажите адрес ...'
+                        'placeholder' => 'Укажите вид задания ...',
+                        'disabled' => $disable,
                     ],
                     'pluginOptions' => [
-                        'allowClear' => true
-                    ]
-                ]);                
+                        'allowClear' => true,
+                    ],
+                ])->label('Вид задания <span class="minnesota-active">*</span>');
             ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'data_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999',])->widget(DatePicker::className(), ['options'=>['class'=>'form-control',], 'language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]); ?>
+            <?php
+                echo $form->field($model, 'adress')->widget(Select2::className(), [
+                    'data' => $agent,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите адрес ...',
+                        'disabled' => $disable,
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]);
+            ?>
         </div>
 
         <div class="col-md-2">
-            <?= $form->field($model, 'note')->textInput() ?>
+            <?= $form->field($model, 'data_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
+                                                 ->widget(DatePicker::className(), [
+                                                     'options' => [
+                                                         'class' => 'form-control',
+                                                         'disabled' => $disable,
+                                                     ],
+                                                     'language' => 'ru',
+                                                     'dateFormat' => 'dd.MM.yyyy',
+                                                 ]);
+            ?>
+        </div>
+
+        <div class="col-md-2">
+            <?= $form->field($model, 'note')->textInput(['disabled' => $disable]) ?>
         </div>
 
         <div class="col-md-2">
             <?php
-                $items = [
-                    'Документация на изделие'=>'Документация на изделие',
-                    'Нормативно-техническая документация'=>'Нормативно-техническая документация',
-                    'Документация на составную часть изделия'=>'Документация на составную часть изделия',
-                    'Материалы НИР и ОКР'=>'Материалы НИР и ОКР',
-                    'Проект'=>'Проект',
-                    'Уникальная и особо ценная документация'=>'Уникальная и особо ценная документация',
-                    'Аварийная документация'=>'Аварийная документация',
-                ];
-                $params = [
-                    'prompt' => 'Укажите признак документации'
-                ];
-                echo $form->field($model, 'prizn_document')->dropDownList($items, $params);
+                echo $form->field($model, 'prizn_document')->dropDownList($attribute, [
+                    'prompt' => 'Укажите признак документации ...',
+                    'disabled' => $disable,
+                    'id' => 'minnesotaDocumentationAttribute',
+                ]);
             ?>
         </div>
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?php
+            if (!$disable) {
+                Pjax::begin(['id' => 'pjaxContent1']);
+                    echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+                    echo ' ';
+                    switch ($window){
+                        case 'index':
+                            echo Html::a('Закрыть', ['index'], ['class' => 'btn btn-info']);
+                            break;
+                        case 'bigger':
+                            echo Html::a('Закрыть', ['bigger'], ['class' => 'btn btn-info']);
+                            break;
+                        default:
+                            echo Html::a('Закрыть', ['index'], ['class' => 'btn btn-info']);
+                            break;
+                    }
+                    echo ' ';
+                    echo Html::a('<span class="glyphicon glyphicon-refresh"></span>', ['sheet/create', 'type' => $type, 'window' => $window], ['class' => 'btn btn-falcon', 'title' => \Yii::t('yii', 'Обновить')]);
+                    echo ' ';
+                    echo Html::button('<span class="glyphicon glyphicon-share"></span>', ['value' => Url::to(['sheet/modal']), 'title' => 'Ведение справочника индексов изделий', 'class' => 'showModalButton btn btn-falcon']);
+                Pjax::end();
+            }
+        ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
