@@ -300,7 +300,7 @@ use kartik\select2\Select2;
             <?= $form->field($model, 'fasc')->textInput(['disabled' => $disable]) ?>
         </div>
 
-        <?php Pjax::begin(['id' => 'pjaxContent1']); ?>
+        <?php Pjax::begin(['id' => 'pjaxContent1', 'timeout' => 5000]); ?>
             <div class="col-md-2">
                 <?php
                     echo $form->field($model, 'index')->widget(Select2::className(), [
@@ -407,7 +407,7 @@ use kartik\select2\Select2;
     <div class="form-group">
         <?php
             if (!$disable) {
-                Pjax::begin(['id' => 'pjaxContent1']);
+                Pjax::begin(['id' => 'pjaxContent1', 'timeout' => 5000]);
                     echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
                     echo ' ';
                     switch ($window){

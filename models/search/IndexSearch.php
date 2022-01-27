@@ -46,9 +46,31 @@ class IndexSearch extends Index
             if ($session->has('IndexSearch')){
                 $params['IndexSearch'] = $session['IndexSearch'];
             }
+        } else {
+            $session->set('IndexSearch', $params['IndexSearch']);
+        }
+
+        if (!isset($params['sort'])) {
+            if ($session->has('IndexSearchSort')){
+                $params['sort'] = $session['IndexSearchSort'];
+            }
+        } else {
+            $session->set('IndexSearchSort', $params['sort']);
+        }
+
+        if (isset($params['sort'])) {
+            $pos = stripos($params['sort'], '-');
+            if ($pos !== false) {
+                $typeSort = SORT_DESC;
+                $fieldSort = substr($params['sort'], 1);
+            } else {
+                $typeSort = SORT_ASC;
+                $fieldSort = $params['sort'];
+            }
         }
         else {
-            $session->set('IndexSearch', $params['IndexSearch']);
+            $typeSort = SORT_ASC;
+            $fieldSort = 'index';
         }
 
         $query = Index::find();
@@ -57,7 +79,7 @@ class IndexSearch extends Index
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['index' => SORT_ASC]],
+            'sort' => ['defaultOrder' => [$fieldSort => $typeSort]],
         ]);
 
         $this->load($params);

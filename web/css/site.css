@@ -248,11 +248,32 @@ a {
     flex-direction: column;
 }
 
-.minnesota-column-percent-18 {
+.minnesota-column-percent-48 {
     white-space: normal;
-    width: 18%;
-    min-width: 18%;
-    max-width: 18%;
+    width: 48.5%;
+    min-width: 48.5%;
+    max-width: 48.5%;
+}
+
+.minnesota-column-percent-37 {
+    white-space: normal;
+    width: 37.5%;
+    min-width: 37.5%;
+    max-width: 37.5%;
+}
+
+.minnesota-column-percent-24 {
+    white-space: normal;
+    width: 24%;
+    min-width: 24%;
+    max-width: 24%;
+}
+
+.minnesota-column-percent-220 {
+    white-space: normal;
+    width: 22%;
+    min-width: 22%;
+    max-width: 22%;
 }
 
 .minnesota-column-percent-22 {
@@ -262,7 +283,14 @@ a {
     max-width: 22.5%;
 }
 
-.minnesota-column-percent-7 {
+.minnesota-column-percent-18 {
+    white-space: normal;
+    width: 18%;
+    min-width: 18%;
+    max-width: 18%;
+}
+
+.minnesota-column-percent-8 {
     white-space: normal;
     width: 8.3%;
     min-width: 8.3%;
@@ -274,6 +302,13 @@ a {
     width: 7%;
     min-width: 7%;
     max-width: 7%;
+}
+
+.minnesota-column-percent-4 {
+    white-space: normal;
+    width: 4%;
+    min-width: 4%;
+    max-width: 4%;
 }
 
 .minnesota-column-percent-3 {

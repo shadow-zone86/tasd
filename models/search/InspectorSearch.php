@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use app\models\Sheet;
 
 /**
- * SheetSearch represents the model behind the search form of `app\models\Sheet`.
+ * InspectorSearch represents the model behind the search form of `app\models\Sheet`.
  */
-class SheetSearch extends Sheet
+class InspectorSearch extends Sheet
 {
     /**
      * @inheritdoc
@@ -42,20 +42,20 @@ class SheetSearch extends Sheet
     {
         $session = Yii::$app->session;
 
-        if (!isset($params['SheetSearch'])) {
-            if ($session->has('SheetSearch')){
-                $params['SheetSearch'] = $session['SheetSearch'];
+        if (!isset($params['InspectorSearch'])) {
+            if ($session->has('InspectorSearch')){
+                $params['InspectorSearch'] = $session['InspectorSearch'];
             }
         } else {
-            $session->set('SheetSearch', $params['SheetSearch']);
+            $session->set('InspectorSearch', $params['InspectorSearch']);
         }
 
         if (!isset($params['sort'])) {
-            if ($session->has('SheetSearchSort')){
-                $params['sort'] = $session['SheetSearchSort'];
+            if ($session->has('InspectorSearchSort')){
+                $params['sort'] = $session['InspectorSearchSort'];
             }
         } else {
-            $session->set('SheetSearchSort', $params['sort']);
+            $session->set('InspectorSearchSort', $params['sort']);
         }
 
         if (isset($params['sort'])) {

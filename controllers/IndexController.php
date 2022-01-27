@@ -37,13 +37,17 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
+        $model = new Index();
         $searchModel = new IndexSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 15];
 
         $this->layout='base';
         return $this->render('index', [
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'rowsCount' => $model->getRows(),
         ]);
     }
 
@@ -165,6 +169,9 @@ class IndexController extends Controller
         $session = Yii::$app->session;
         if ($session->has('IndexSearch')) {
             $session->remove('IndexSearch');
+        }
+        if ($session->has('IndexSearchSort')) {
+            $session->remove('IndexSearchSort');
         }
 
         return $this->redirect('index');

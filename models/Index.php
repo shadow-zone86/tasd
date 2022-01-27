@@ -36,4 +36,12 @@ class Index extends IndexBase
         $query = Sheet::find()->select(['id'])->where(['index' => $arr[0]['index']])->andWhere(['indication' => $arr[0]['litera']])->all();
         return ArrayHelper::getColumn($query, 'id');
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRows()
+    {
+        return Index::find()->count();
+    }
 }

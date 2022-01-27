@@ -35,13 +35,17 @@ class AgentController extends Controller
      */
     public function actionIndex()
     {
+        $model = new Agent();
         $searchModel = new AgentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 15];
 
         $this->layout='base';
         return $this->render('index', [
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'rowsCount' => $model->getRows(),
         ]);
     }
 
@@ -110,11 +114,9 @@ class AgentController extends Controller
     {
         $model = new Agent();
         $name_agent = $model->getNameAgent($id);
-        $made_form = $model->getMadeForm($name_agent[0]['number_agent']);
-        $agent = $model->getAgent($name_agent[0]['number_agent']);
-        $adress = $model->getAdress($name_agent[0]['number_agent']);
+        $counter = $model->getAgentCount($name_agent[0]['number_agent']);
 
-        if (empty($made_form) && empty($agent) && empty($adress)) {
+        if ($counter <= 0) {
             $this->findModel($id)->delete();
             \Yii::$app->session->setFlash('report_message', '    
                 <div class="alert alert-success" role="alert">
@@ -165,6 +167,9 @@ class AgentController extends Controller
         $session = Yii::$app->session;
         if ($session->has('AgentSearch')) {
             $session->remove('AgentSearch');
+        }
+        if ($session->has('AgentSearchSort')) {
+            $session->remove('AgentSearchSort');
         }
 
         return $this->redirect('index');

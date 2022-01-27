@@ -12,7 +12,8 @@ use yii\helpers\Url;
 $this->title = 'Ведение МКФ';
 ?>
 <div class="sheet-bigger minnesota-margin">
-
+    <input class="unvisible_input" id="window_page" value="bigger" />
+    <input class="unvisible_input" id="rows_count" value="<?=$rowsCount?>" />
     <ol class="breadcrumb">
         <li><a href="/">Главная</a></li>
         <li class="minnesota-active"><?= Html::encode($this->title) ?></li>

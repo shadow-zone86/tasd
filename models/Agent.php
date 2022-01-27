@@ -41,4 +41,17 @@ class Agent extends AgentBase
         $query = Sheet::find()->select(['adress'])->where(['adress' => $name_agent])->all();
         return ArrayHelper::getColumn($query, 'adress');
     }
+
+    public function getAgentCount($name_agent)
+    {
+        return Sheet::find()->select(['made_form', 'agent', 'adress'])->where(['made_form' => $name_agent])->orWhere(['agent' => $name_agent])->orWhere(['adress' => $name_agent])->count();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRows()
+    {
+        return Agent::find()->count();
+    }
 }

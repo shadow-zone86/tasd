@@ -55,6 +55,7 @@ class SheetController extends Controller
             'attribute' => $model->getDocumentationAttribute(),
             'action' => $model->getAction(),
             'window' => 'index',
+            'rowsCount' => $model->getRows(),
         ]);
     }
 
@@ -81,6 +82,7 @@ class SheetController extends Controller
             'attribute' => $model->getDocumentationAttribute(),
             'action' => $model->getAction(),
             'window' => 'bigger',
+            'rowsCount' => $model->getRows(),
         ]);
     }
 
@@ -265,6 +267,7 @@ class SheetController extends Controller
 
     /**
      * Clear filter.
+     * @param string $window
      * @return mixed
      */
     public function actionClearFilter($window)
@@ -292,7 +295,6 @@ class SheetController extends Controller
 
     /**
      * Creates a new index model in modal window.
-     * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionModal()

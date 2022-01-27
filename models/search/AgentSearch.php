@@ -46,9 +46,31 @@ class AgentSearch extends Agent
             if ($session->has('AgentSearch')){
                 $params['AgentSearch'] = $session['AgentSearch'];
             }
+        } else {
+            $session->set('AgentSearch', $params['AgentSearch']);
+        }
+
+        if (!isset($params['sort'])) {
+            if ($session->has('AgentSearchSort')){
+                $params['sort'] = $session['AgentSearchSort'];
+            }
+        } else {
+            $session->set('AgentSearchSort', $params['sort']);
+        }
+
+        if (isset($params['sort'])) {
+            $pos = stripos($params['sort'], '-');
+            if ($pos !== false) {
+                $typeSort = SORT_DESC;
+                $fieldSort = substr($params['sort'], 1);
+            } else {
+                $typeSort = SORT_ASC;
+                $fieldSort = $params['sort'];
+            }
         }
         else {
-            $session->set('AgentSearch', $params['AgentSearch']);
+            $typeSort = SORT_ASC;
+            $fieldSort = 'number_agent';
         }
 
         $query = Agent::find();
@@ -57,7 +79,7 @@ class AgentSearch extends Agent
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['number_agent' => SORT_ASC]],
+            'sort' => ['defaultOrder' => [$fieldSort => $typeSort]],
         ]);
 
         $this->load($params);

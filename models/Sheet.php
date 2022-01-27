@@ -167,4 +167,12 @@ class Sheet extends SheetBase
     {
         return $this->_form;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRows()
+    {
+        return Sheet::find()->count();
+    }
 }

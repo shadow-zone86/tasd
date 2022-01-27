@@ -111,3 +111,36 @@ $(function () {
         return false;
     });
 });
+
+/*
+ * Функция работы по страничной навигации.
+ */
+$(function () {
+    $(document).ready(function () {
+        var window_page = $("#window_page").val();
+        var rows = $('#rows_count');
+        var rows_count = Math.ceil(rows[0]['defaultValue'] / 15);
+        switch (window_page) {
+            case 'sheet':
+                $('.prev a').attr('href', '/sheet/index?page=1&per-page=15');
+                $('.next a').attr('href', '/sheet/index?page='+rows_count+'&per-page=15');
+                break;
+            case 'bigger':
+                $('.prev a').attr('href', '/sheet/bigger?page=1&per-page=15');
+                $('.next a').attr('href', '/sheet/bigger?page='+rows_count+'&per-page=15');
+                break;
+            case 'inspector':
+                $('.prev a').attr('href', '/inspector/index?page=1&per-page=15');
+                $('.next a').attr('href', '/inspector/index?page='+rows_count+'&per-page=15');
+                break;
+            case 'agent':
+                $('.prev a').attr('href', '/agent/index?page=1&per-page=15');
+                $('.next a').attr('href', '/agent/index?page='+rows_count+'&per-page=15');
+                break;
+            case 'index':
+                $('.prev a').attr('href', '/index/index?page=1&per-page=15');
+                $('.next a').attr('href', '/index/index?page='+rows_count+'&per-page=15');
+                break;
+        }
+    });
+});

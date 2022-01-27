@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Sheet;
-use app\models\search\SheetSearch;
+use app\models\search\InspectorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,13 +35,16 @@ class InspectorController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SheetSearch();
+        $model = new Sheet();
+        $searchModel = new InspectorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 15];
 
         $this->layout='base';
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'rowsCount' => $model->getRows(),
         ]);
     }
 
@@ -140,8 +143,11 @@ class InspectorController extends Controller
     public function actionClearFilter()
     {
         $session = Yii::$app->session;
-        if ($session->has('SheetSearch')) {
-            $session->remove('SheetSearch');
+        if ($session->has('InspectorSearch')) {
+            $session->remove('InspectorSearch');
+        }
+        if ($session->has('InspectorSearchSort')) {
+            $session->remove('InspectorSearchSort');
         }
 
         return $this->redirect('index');

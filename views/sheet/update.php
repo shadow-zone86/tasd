@@ -12,7 +12,23 @@ $this->title = 'Редактировать';
 
     <ol class="breadcrumb">
         <li><a href="/">Главная</a></li>
-        <li><a href="<?= Url::toRoute("index")?>">Ведение МКФ</a></li>
+        <li>
+            <a href="
+                <?php
+                    switch ($window) {
+                        case 'index':
+                            echo Url::toRoute("index");
+                            break;
+                        case 'bigger':
+                            echo Url::toRoute("bigger");
+                            break;
+                        default:
+                            echo Url::toRoute("index");
+                            break;
+                    }
+                ?>
+            ">Ведение МКФ</a>
+        </li>
         <li class="minnesota-active"><?= Html::encode($this->title) ?></li>
     </ol>
 

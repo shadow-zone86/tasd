@@ -12,7 +12,8 @@ use yii\bootstrap\ButtonDropdown;
 $this->title = 'Ведение справочника индексов изделий';
 ?>
 <div class="index-index minnesota-margin">
-
+    <input class="unvisible_input" id="window_page" value="index" />
+    <input class="unvisible_input" id="rows_count" value="<?=$rowsCount?>" />
     <ol class="breadcrumb">
         <li><a href="/">Главная</a></li>
         <li><a href="<?= Url::toRoute("/site/manual")?>">Справочники</a></li>
@@ -33,13 +34,45 @@ $this->title = 'Ведение справочника индексов изде�
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'index:ntext',
-            'litera:ntext',
+            [
+                'attribute' => 'index',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'class' => 'minnesota-column-percent-48',
+                ],
+                'value' => function ($data) use ($model) {
+                    $arr = $model->getIndexLitera($data['id']);
+                    $check = $model->getIndexIndication($arr);
+
+                    if (empty($check)) {
+                        return '<i class="glyphicon glyphicon-exclamation-sign minnesota-active" title="Индекс не используется"></i>' . ' ' . Html::a($data['index'], Url::toRoute(['view', 'id' => $data['id']]), [
+                            'title' => Yii::t('app', 'Просмотр'),
+                            'class' => 'all-blacks',
+                        ]);
+                    } else {
+                        return Html::a($data['index'], Url::toRoute(['view', 'id' => $data['id']]), [
+                            'title' => Yii::t('app', 'Просмотр'),
+                            'class' => 'all-blacks',
+                        ]);
+                    }
+                }
+            ],
+            [
+                'attribute' => 'litera',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'class' => 'minnesota-column-percent-48',
+                ],
+                'value' => function ($data) {
+                    return $data['litera'];
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => [
-                    'style' => 'white-space: normal; width: 3%; min-width: 3%; max-width: 3%;'
+                    'class' => 'minnesota-column-percent-3',
+                    'style' => 'white-space: normal; width: 3%; min-width: 3%; max-width: 3%;',
                 ],
                 'buttons' => [
                     'all' => function ($url, $model, $key) {
