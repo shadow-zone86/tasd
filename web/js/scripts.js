@@ -56,28 +56,28 @@ $(function () {
         var pp8 = "Аварийная документация";
         switch(key5) {
             case "1":
-                $("#minnesotaDocumentationAttribute").val(pp1);
+                $("#minnesotaDocumentationAttribute").val(pp1).trigger('change');
                 break;
             case "2":
-                $("#minnesotaDocumentationAttribute").val(pp2);
+                $("#minnesotaDocumentationAttribute").val(pp2).trigger('change');
                 break;
             case "3":
-                $("#minnesotaDocumentationAttribute").val(pp3);
+                $("#minnesotaDocumentationAttribute").val(pp3).trigger('change');
                 break;
             case "4":
-                $("#minnesotaDocumentationAttribute").val(pp4);
+                $("#minnesotaDocumentationAttribute").val(pp4).trigger('change');
                 break;
             case "5":
-                $("#minnesotaDocumentationAttribute").val(pp5);
+                $("#minnesotaDocumentationAttribute").val(pp5).trigger('change');
                 break;
             case "6":
-                $("#minnesotaDocumentationAttribute").val(pp6);
+                $("#minnesotaDocumentationAttribute").val(pp6).trigger('change');
                 break;
             case "7":
-                $("#minnesotaDocumentationAttribute").val(pp7);
+                $("#minnesotaDocumentationAttribute").val(pp7).trigger('change');
                 break;
             case "8":
-                $("#minnesotaDocumentationAttribute").val(pp8);
+                $("#minnesotaDocumentationAttribute").val(pp8).trigger('change');
                 break;
         }
     });

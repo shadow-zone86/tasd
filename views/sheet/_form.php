@@ -395,10 +395,17 @@ use kartik\select2\Select2;
 
         <div class="col-md-2">
             <?php
-                echo $form->field($model, 'prizn_document')->dropDownList($attribute, [
-                    'prompt' => 'Укажите признак документации ...',
-                    'disabled' => $disable,
-                    'id' => 'minnesotaDocumentationAttribute',
+                echo $form->field($model, 'prizn_document')->widget(Select2::className(), [
+                    'data' => $attribute,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите признак документации ...',
+                        'disabled' => $disable,
+                        'id' => 'minnesotaDocumentationAttribute',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
                 ]);
             ?>
         </div>
