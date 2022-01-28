@@ -144,3 +144,14 @@ $(function () {
         }
     });
 });
+
+/*
+ * Функция работы кнопки отображения списка, где используется индекс / предприятие.
+ */
+$(function () {
+    $(document).on('click', '.list-button', function (e) {
+        e.preventDefault();
+        $('.list-form').toggle(1000);
+        return false;
+    });
+});

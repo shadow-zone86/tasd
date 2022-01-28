@@ -28,6 +28,7 @@ $this->title = $model->index;
             ],
         ]) ?>
         <?= Html::a('Закрыть', ['index'], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('<span id="minnesota-vue" class="glyphicon glyphicon-list-alt"></span>', '#', ['class' => 'btn btn-falcon list-button', 'title' => \Yii::t('yii', 'Перечень МКФ, где используется индекс')]) ?>
     </p>
 
     <?= DetailView::widget([
@@ -37,5 +38,17 @@ $this->title = $model->index;
             'litera:ntext',
         ],
     ]) ?>
+
+    <div class="list-form">
+        <p>
+            <?php
+                echo $this->render('_list', [
+                    'model' => $model,
+                    'index' => $model->index,
+                    'indication' => $model->litera,
+                ]);
+            ?>
+        </p>
+    </div>
 
 </div>

@@ -72,13 +72,12 @@ $this->title = 'Ведение справочника индексов изде�
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => [
                     'class' => 'minnesota-column-percent-3',
-                    'style' => 'white-space: normal; width: 3%; min-width: 3%; max-width: 3%;',
                 ],
                 'buttons' => [
                     'all' => function ($url, $model, $key) {
                         return '<div class="btn-group">' . ButtonDropdown::widget([
                             'label' => '...',
-                            'options' => ['class' => 'btn btn-falcon'],
+                            'options' => ['class' => 'nautilus-pompilius btn-falcon'],
                             'dropdown' => [
                                 'options' => ['class' => 'dropdown-menu my_width_ddm'],
                                 'items' => [

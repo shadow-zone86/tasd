@@ -44,4 +44,13 @@ class Index extends IndexBase
     {
         return Index::find()->count();
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getListSheet($index, $indication)
+    {
+        $query = Sheet::find()->select(['number_form'])->where(['index' => $index])->andWhere(['indication' => $indication])->all();
+        return ArrayHelper::getColumn($query, 'number_form');
+    }
 }
