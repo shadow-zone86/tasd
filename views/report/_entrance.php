@@ -8,6 +8,8 @@ use yii\widgets\MaskedInput;
 /* @var $this yii\web\View */
 /* @var $model app\models\EntranceReport */
 /* @var $form yii\bootstrap\ActiveForm */
+/* @var $list array */
+/* @var $type array */
 
 ?>
 

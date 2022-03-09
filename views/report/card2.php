@@ -1,3 +1,13 @@
+<?php
+
+/* @var $index string */
+/* @var $indication string */
+/* @var $accompLetter string */
+/* @var $fasc string */
+/* @var $numberForm string */
+
+?>
+
 <table style="font-size: 14pt">
     <tr>
         <td> </td>

@@ -1,3 +1,11 @@
+<?php
+
+/* @var $sheet array */
+/* @var $index string */
+
+?>
+
+
 <table>
     <tr>
         <td align="center" colspan="9"> Подбор МКФ по индексу изделия "<?=$index?>" </td>

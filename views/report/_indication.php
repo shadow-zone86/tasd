@@ -7,6 +7,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\IndicationReport */
 /* @var $form yii\bootstrap\ActiveForm */
+/* @var $indication array */
 
 ?>
 

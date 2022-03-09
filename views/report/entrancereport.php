@@ -1,3 +1,11 @@
+<?php
+
+/* @var $date1 string */
+/* @var $date2 string */
+/* @var $sheet array */
+
+?>
+
 <table>
     <tr>
         <td align="center" colspan="11"> Перечень микроформ, поступивших за период с <?=$date1?> по <?=$date2?> </td>

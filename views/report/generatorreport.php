@@ -1,3 +1,9 @@
+<?php
+
+/* @var $sheet array */
+
+?>
+
 <table>
     <tr>
         <td align="center" colspan="11"> Генератор отчетов </td>

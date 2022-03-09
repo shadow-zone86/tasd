@@ -5,6 +5,7 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MadeReport */
+/* @var $made array */
 
 ?>
 

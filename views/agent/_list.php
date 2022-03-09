@@ -1,6 +1,10 @@
 <?php
-/* @var $model app\models\Agent */
-$arr = $model->getListSheet($agent);
+
+    /* @var $model app\models\Agent */
+    /* @var $agent array */
+
+    $arr = $model->getListSheet($agent);
+
 ?>
 
 <div class="agent-list">

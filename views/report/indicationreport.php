@@ -1,3 +1,10 @@
+<?php
+
+/* @var $sheet array */
+/* @var $indication string */
+
+?>
+
 <table>
     <tr>
         <td align="center" colspan="9"> Подбор МКФ по обозначению изделия "<?=$indication?>" </td>

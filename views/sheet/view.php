@@ -5,9 +5,22 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Sheet */
+/* @var $modelIndex app\models\Index */
+/* @var $window string */
+/* @var $disable string */
+/* @var $index array */
+/* @var $indication array */
+/* @var $number array */
+/* @var $secrecy array */
+/* @var $agent array */
+/* @var $action array */
+/* @var $attribute array */
+/* @var $type number */
 
 $this->title = $model->number_form;
+
 ?>
+
 <div class="sheet-view minnesota-margin">
 
     <ol class="breadcrumb">

@@ -412,6 +412,46 @@ class ReportController extends Controller
             'type' => $model->getType(),
         ]);
     }
+
+    /*
+     * Подсчет индексов изделий
+     */
+    public function actionCountIndex(){
+        $model = new IndexReport();
+        $nn = count($model->getIndex());
+        if ($nn > 12000) {
+            $this->layout='report';
+            $this->view->title='Подсчет индексов изделий';
+            return $this->render('countindexreport', [
+                'index' => $model->getIndex(),
+            ]);
+        } else {
+            $this->layout = 'report';
+            Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+            $headers = Yii::$app->response->headers;
+            $headers->add('Content-Type', 'application/pdf');
+            $this->view->title = 'Подсчет индексов изделий';
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_UTF8,
+                'format' => Pdf::FORMAT_A4,
+                'content' => $this->renderPartial('countindexreport', [
+                    'index' => $model->getIndex(),
+                ]),
+                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                'cssInline' => '.img-circle {border-radius: 50%;}',
+                'options' => [
+                    'title' => 'Распечатка события - Index Report',
+                    'subject' => 'PDF'
+                ],
+                'methods' => [
+                    'SetHeader' => ['Подсчет индексов изделий'],
+                    'SetFooter' => ['{PAGENO}'],
+                ]
+            ]);
+            return $pdf->render();
+        }
+    }
 }
 
 ?>

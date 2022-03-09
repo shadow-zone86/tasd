@@ -9,6 +9,7 @@ use yii\widgets\MaskedInput;
 /* @var $this yii\web\View */
 /* @var $model app\models\MadeReport */
 /* @var $form yii\bootstrap\ActiveForm */
+/* @var $made array */
 
 ?>
 

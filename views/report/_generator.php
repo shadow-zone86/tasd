@@ -7,6 +7,12 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\GeneratorReport */
 /* @var $form yii\bootstrap\ActiveForm */
+/* @var $type array */
+/* @var $xxx array */
+/* @var $agent array */
+/* @var $index array */
+/* @var $indication array */
+/* @var $task array */
 
 ?>
 

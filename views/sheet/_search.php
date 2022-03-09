@@ -9,6 +9,12 @@ use yii\jui\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\search\SheetSearch */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $mkf array */
+/* @var $agent array */
+/* @var $index array */
+/* @var $indication array */
+/* @var $attribute array */
+/* @var $action array */
 ?>
 
 <div class="sheet-search">

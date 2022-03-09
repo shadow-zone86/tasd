@@ -15,6 +15,7 @@ $this->title = 'Отчеты';
         <div class="button_hola"><a class="falcon" href="<?= Url::toRoute("/report/made");?>"><span>Подбор МКФ по изготовителю за период</span></a></div>
         <div class="button_hola"><a class="falcon" href="<?= Url::toRoute("/report/agent");?>"><span>Подбор МКФ по поставщику документации за период</span></a></div>
         <div class="button_hola"><a class="falcon" href="<?= Url::toRoute("/report/generator");?>"><span>Генератор отчетов</span></a></div>
+        <div class="button_hola"><a class="falcon" href="<?= Url::toRoute("/report/count-index");?>"><span>Подсчет индексов изделий</span></a></div>
     </div>
 
 </div>

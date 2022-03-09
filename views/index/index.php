@@ -8,6 +8,8 @@ use yii\bootstrap\ButtonDropdown;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\IndexSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $rowsCount number */
+/* @var $model app\models\Index */
 
 $this->title = 'Ведение справочника индексов изделий';
 ?>

@@ -11,6 +11,17 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\Sheet */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $type string */
+/* @var $disable string */
+/* @var $number array */
+/* @var $secrecy array */
+/* @var $agent array */
+/* @var $index array */
+/* @var $indication array */
+/* @var $action array */
+/* @var $attribute array */
+/* @var $window string */
+
 ?>
 
 <div class="sheet-form" xmlns="http://www.w3.org/1999/html">

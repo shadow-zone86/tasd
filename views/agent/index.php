@@ -8,8 +8,13 @@ use yii\bootstrap\ButtonDropdown;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\AgentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $rowsCount number */
+/* @var $model app\models\Agent */
+
 $this->title = 'Ведение справочника предприятий';
+
 ?>
+
 <div class="agent-index minnesota-margin">
     <input class="unvisible_input" id="window_page" value="agent" />
     <input class="unvisible_input" id="rows_count" value="<?=$rowsCount?>" />

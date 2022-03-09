@@ -1,6 +1,9 @@
 <?php
-/* @var $model app\models\Index */
-$arr = $model->getListSheet($index, $indication);
+    /* @var $model app\models\Index */
+    /* @var $index array */
+    /* @var $indication array */
+
+    $arr = $model->getListSheet($index, $indication);
 ?>
 
 <div class="index-list">

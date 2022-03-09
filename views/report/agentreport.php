@@ -1,3 +1,12 @@
+<?php
+
+/* @var $agent array */
+/* @var $date1 string */
+/* @var $date2 string */
+/* @var $sheet array */
+
+?>
+
 <table>
     <tr>
         <td align="center" colspan="10"> Перечень МКФ, содержащих документацию</td>

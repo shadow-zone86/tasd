@@ -9,6 +9,7 @@ use yii\jui\DatePicker;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\InspectorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $rowsCount number */
 
 $this->title = 'Ведение МКФ';
 ?>

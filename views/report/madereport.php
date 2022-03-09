@@ -1,3 +1,12 @@
+<?php
+
+/* @var $made_form array */
+/* @var $date1 string */
+/* @var $date2 string */
+/* @var $sheet array */
+
+?>
+
 <table>
     <tr>
         <td align="center" colspan="11"> Перечень МКФ, изготовленных лабораторией</td>

@@ -1,3 +1,29 @@
+<?php
+
+/* @var $numberLetter string */
+/* @var $numberForm string */
+/* @var $dateMade string */
+/* @var $minnesotaForm string */
+/* @var $numberCopy string */
+/* @var $xxx string */
+/* @var $passport string */
+/* @var $workCtencil string */
+/* @var $ctencil string */
+/* @var $defectiveCtencil string */
+/* @var $hiccupped string */
+/* @var $agent array */
+/* @var $index string */
+/* @var $typeDocument string */
+/* @var $accompLetter string */
+/* @var $fasc string */
+/* @var $block string */
+/* @var $gloset string */
+/* @var $shelf string */
+/* @var $cell string */
+/* @var $note string */
+
+?>
+
 <table style="font-size: 14pt">
     <tr>
         <td colspan="4" align="left"><p>Входящий номер письма <b><?= $numberLetter ?></b></p></td>

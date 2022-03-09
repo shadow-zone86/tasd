@@ -8,6 +8,15 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\SheetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $mkf array */
+/* @var $agent array */
+/* @var $index array */
+/* @var $indication array */
+/* @var $attribute array */
+/* @var $action array */
+/* @var $rowsCount array */
+/* @var $window string */
+/* @var $secrecy array */
 
 $this->title = 'Ведение МКФ';
 ?>
