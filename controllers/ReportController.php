@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\IndexSignReport;
 use Yii;
 use app\models\AgentReport;
 use app\models\EntranceReport;
@@ -106,7 +107,7 @@ class ReportController extends Controller
                     'cssInline' => '.img-circle {border-radius: 50%;}',
                     'options' => [
                         'title' => 'Распечатка события - Entrance Report',
-                        'subject' => 'PDF'
+                        'subject' => 'PDF',
                     ],
                     'methods' => [
                         'SetHeader' => ['Перечень МКФ, поступивших за период'],
@@ -160,7 +161,7 @@ class ReportController extends Controller
                     'cssInline' => '.img-circle {border-radius: 50%;}',
                     'options' => [
                         'title' => 'Распечатка события - Index Report',
-                        'subject' => 'PDF'
+                        'subject' => 'PDF',
                     ],
                     'methods' => [
                         'SetHeader' => ['Подбор МКФ по индексу изделия'],
@@ -213,7 +214,7 @@ class ReportController extends Controller
                     'cssInline' => '.img-circle {border-radius: 50%;}',
                     'options' => [
                         'title' => 'Распечатка события - Indication Report',
-                        'subject' => 'PDF'
+                        'subject' => 'PDF',
                     ],
                     'methods' => [
                         'SetHeader' => ['Подбор МКФ по обозначению изделия'],
@@ -274,7 +275,7 @@ class ReportController extends Controller
                     'cssInline' => '.img-circle {border-radius: 50%;}',
                     'options' => [
                         'title' => 'Распечатка события - Made Report',
-                        'subject' => 'PDF'
+                        'subject' => 'PDF',
                     ],
                     'methods' => [
                         'SetHeader' => ['Подбор МКФ по изготовителю МКФ за период'],
@@ -335,7 +336,7 @@ class ReportController extends Controller
                     'cssInline' => '.img-circle {border-radius: 50%;}',
                     'options' => [
                         'title' => 'Распечатка события - Agent Report',
-                        'subject' => 'PDF'
+                        'subject' => 'PDF',
                     ],
                     'methods' => [
                         'SetHeader' => ['Подбор МКФ по поставщику документации МКФ'],
@@ -388,7 +389,7 @@ class ReportController extends Controller
                     'cssInline' => '.img-circle {border-radius: 50%;}',
                     'options' => [
                         'title' => 'Распечатка события - Generator Report',
-                        'subject' => 'PDF'
+                        'subject' => 'PDF',
                     ],
                     'methods' => [
                         'SetHeader'=> ['Генератор отчетов'],
@@ -442,7 +443,7 @@ class ReportController extends Controller
                 'cssInline' => '.img-circle {border-radius: 50%;}',
                 'options' => [
                     'title' => 'Распечатка события - Index Report',
-                    'subject' => 'PDF'
+                    'subject' => 'PDF',
                 ],
                 'methods' => [
                     'SetHeader' => ['Подсчет индексов изделий'],
@@ -451,6 +452,48 @@ class ReportController extends Controller
             ]);
             return $pdf->render();
         }
+    }
+
+    /*
+     * Подсчет индексов изделий в разрезе признаков документации
+     */
+    public function actionIndexSign(){
+        $model = new IndexSignReport();
+        $model->sign = $model->getCheckType();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $sheet = $model->getSheet($model->sign);
+            $this->layout = 'report';
+            Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+            $headers = Yii::$app->response->headers;
+            $headers->add('Content-Type', 'application/pdf');
+            $this->view->title = 'Подсчет индексов изделий в разрезе признаков документации';
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_UTF8,
+                'format' => Pdf::FORMAT_A4,
+                'content' => $this->renderPartial('signreport', [
+                    'sheet' => $sheet,
+                ]),
+                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                'cssInline' => '.img-circle {border-radius: 50%;}',
+                'options' => [
+                    'title' => 'Распечатка события - Sign Report',
+                    'subject' => 'PDF',
+                ],
+                'methods' => [
+                    'SetHeader' => ['Подсчет индексов изделий в разрезе признаков документации'],
+                    'SetFooter' => ['{PAGENO}'],
+                ]
+            ]);
+            return $pdf->render();
+        }
+
+        $this->layout='base';
+        $this->view->title='Подсчет индексов изделий в разрезе признаков документации';
+        return $this->render('sign', [
+            'model' => $model,
+            'type' => $model->getType(),
+        ]);
     }
 }
 

@@ -27,16 +27,16 @@ use yii\jui\DatePicker;
     <div class="row">
         <div class="col-md-3">
             <?php
-            echo $form->field($model, 'form')->widget(Select2::className(), [
-                'data' => $mkf,
-                'maintainOrder' => true,
-                'options' => [
-                    'placeholder' => 'Укажите вид МКФ ...',
-                ],
-                'pluginOptions' => [
-                    'allowClear' => true,
-                ],
-            ]);
+                echo $form->field($model, 'form')->widget(Select2::className(), [
+                    'data' => $mkf,
+                    'maintainOrder' => true,
+                    'options' => [
+                        'placeholder' => 'Укажите вид МКФ ...',
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]);
             ?>
         </div>
         <div class="col-md-3">
@@ -55,12 +55,6 @@ use yii\jui\DatePicker;
                     ],
                 ]);
             ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'roll')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'copy')->textInput(['type' => 'number']); ?>
         </div>
         <div class="col-md-3">
             <?= $form->field($model, 'date_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
@@ -85,9 +79,6 @@ use yii\jui\DatePicker;
             ?>
         </div>
         <div class="col-md-3">
-            <?php echo $form->field($model, 'number_check')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
             <?php
                 echo $form->field($model, 'agent')->widget(Select2::className(), [
                     'data' => $agent,
@@ -102,39 +93,6 @@ use yii\jui\DatePicker;
             ?>
         </div>
         <div class="col-md-3">
-            <?php echo $form->field($model, 'density')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'na2so3')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'ag')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'ov')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'ss')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 's')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'n_s')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'dsp')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'k')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'kt')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'sk')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
             <?php echo $form->field($model, 'hiccupped')->textInput(['type' => 'number']); ?>
         </div>
         <div class="col-md-3">
@@ -145,9 +103,6 @@ use yii\jui\DatePicker;
         </div>
         <div class="col-md-3">
             <?php echo $form->field($model, 'defective_ctencil')->textInput(['type' => 'number']); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'glue')->textInput(['type' => 'number']); ?>
         </div>
         <div class="col-md-3">
             <?php echo $form->field($model, 'block')->textInput(['type' => 'number']); ?>
@@ -218,49 +173,7 @@ use yii\jui\DatePicker;
             <?php echo $form->field($model, 'fasc'); ?>
         </div>
         <div class="col-md-3">
-            <?php
-                echo $form->field($model, 'adress')->widget(Select2::className(), [
-                    'data' => $agent,
-                    'maintainOrder' => true,
-                    'options' => [
-                        'placeholder' => 'Укажите адрес ...',
-                    ],
-                    'pluginOptions' => [
-                        'allowClear' => true,
-                    ],
-                ]);
-            ?>
-        </div>
-        <div class="col-md-3">
-            <?= $form->field($model, 'data_made')->widget(MaskedInput::className(), ['mask' => '99.99.9999'])
-                                                  ->widget(DatePicker::className(), [
-                                                      'options' => [
-                                                          'class' => 'form-control',
-                                                      ],
-                                                      'language' => 'ru',
-                                                      'dateFormat' => 'dd.MM.yyyy',
-                                                  ]);
-            ?>
-        </div>
-        <div class="col-md-3">
             <?php echo $form->field($model, 'nama_mkf'); ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'note'); ?>
-        </div>
-        <div class="col-md-3">
-            <?php
-                echo $form->field($model, 'action')->widget(Select2::className(), [
-                    'data' => $action,
-                    'maintainOrder' => true,
-                    'options' => [
-                        'placeholder' => 'Укажите вид задания ...',
-                    ],
-                    'pluginOptions' => [
-                        'allowClear' => true,
-                    ],
-                ]);
-            ?>
         </div>
     </div>
 

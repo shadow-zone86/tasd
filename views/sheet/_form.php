@@ -32,11 +32,11 @@ use kartik\select2\Select2;
         <div class="col-md-2 unvisible_input">
             <!-- Данные поля нужно обязательно отображать на форме для корректной работы JavaScript -->
             <?= $form->field($model, 'form')->textInput(['id' => 'minnesotaForm', 'disabled' => false]) ?>
-            <?= $form->field($model, 'key1')->textInput(['id' => 'minnesotaKey1', 'disabled' => true]) ?>
+            <?= $form->field($model, 'key1')->textInput(['id' => 'minnesotaKey1', 'disabled' => false]) ?>
             <?= $form->field($model, 'key2')->textInput(['id' => 'minnesotaKey2', 'disabled' => false]) ?>
-            <?= $form->field($model, 'key3')->textInput(['id' => 'minnesotaKey3', 'disabled' => true]) ?>
-            <?= $form->field($model, 'key4')->textInput(['id' => 'minnesotaKey4', 'disabled' => true]) ?>
-            <?= $form->field($model, 'key5')->textInput(['id' => 'minnesotaKey5', 'disabled' => true]) ?>
+            <?= $form->field($model, 'key3')->textInput(['id' => 'minnesotaKey3', 'disabled' => false]) ?>
+            <?= $form->field($model, 'key4')->textInput(['id' => 'minnesotaKey4', 'disabled' => false]) ?>
+            <?= $form->field($model, 'key5')->textInput(['id' => 'minnesotaKey5', 'disabled' => false]) ?>
         </div>
 
         <div class="col-md-2">
